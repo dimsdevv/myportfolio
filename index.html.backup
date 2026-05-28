@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dimas Sholihulhadi — Web Developer & Data Science</title>
+  <meta name="description" content="Portofolio Dimas Sholihulhadi — Mahasiswa Sistem Informasi, Web Developer & Penggiat Data Science." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            bg:      '#080c14',
+            surface: '#0d1220',
+            card:    '#111827',
+            border:  '#1e2d45',
+            accent:  '#3b82f6',      /* electric blue */
+            accentL: '#60a5fa',
+            accentD: '#1d4ed8',
+            slate:   '#94a3b8',
+            muted:   '#475569',
+            text:    '#e2e8f0',
+          },
+          backgroundImage: {
+            'hero-grid': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M60 0 L0 0 0 60' fill='none' stroke='%231e2d45' stroke-width='0.5'/%3E%3C/svg%3E\")",
+          },
+          animation: {
+            'float':       'float 6s ease-in-out infinite',
+            'pulse-slow':  'pulse 4s ease-in-out infinite',
+            'spin-slow':   'spin 12s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%':      { transform: 'translateY(-14px)' },
+            },
+          },
+          boxShadow: {
+            'glass':    '0 4px 32px 0 rgba(59,130,246,0.08)',
+            'glow':     '0 0 30px rgba(59,130,246,0.35)',
+            'glow-sm':  '0 0 14px rgba(59,130,246,0.25)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { cursor: none; }
+    @media (hover: none), (pointer: coarse) {
+      html { cursor: auto; }
+      #cursor-dot, #cursor-ring { display: none !important; }
+    }
+
+    body {
+      background-color: #080c14;
+      color: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Custom Cursor ── */
+    #cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: #3b82f6;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform .1s ease, background .2s;
+    }
+    #cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(59,130,246,.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform .18s ease, width .2s, height .2s, opacity .2s;
+    }
+    body:hover #cursor-ring { opacity: 1; }
+    a:hover ~ #cursor-ring,
+    button:hover ~ #cursor-ring { width: 54px; height: 54px; }
+
+    /* ── Glassmorphism ── */
+    .glass {
+      background: rgba(13, 18, 32, 0.72);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(59,130,246,.13);
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(59,130,246,.12);
+    }
+
+    /* ── Scroll-Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity .7s .1s cubic-bezier(.16,1,.3,1), transform .7s .1s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity .7s .15s cubic-bezier(.16,1,.3,1), transform .7s .15s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Progress Bar ── */
+    .progress-bar {
+      height: 4px;
+      background: rgba(59,130,246,.15);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 1.1s cubic-bezier(.16,1,.3,1);
+      box-shadow: 0 0 10px rgba(59,130,246,.6);
+    }
+
+    /* ── Bento Grid ── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .bento-1  { grid-column: span 12; }
+    .bento-4  { grid-column: span 12; }
+    .bento-6  { grid-column: span 12; }
+    .bento-8  { grid-column: span 12; }
+    @media (min-width: 768px) {
+      .bento-4  { grid-column: span 4; }
+      .bento-6  { grid-column: span 6; }
+      .bento-8  { grid-column: span 8; }
+    }
+    @media (min-width: 1024px) {
+      .bento-3  { grid-column: span 3; }
+      .bento-4  { grid-column: span 4; }
+      .bento-6  { grid-column: span 6; }
+      .bento-8  { grid-column: span 8; }
+      .bento-9  { grid-column: span 9; }
+    }
+
+    /* ── Gradient Text ── */
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 55%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Accent Glow Button ── */
+    .btn-glow {
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .3s, transform .2s;
+    }
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg,#3b82f6,#6366f1,#38bdf8);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .btn-glow:hover::before { opacity: 1; }
+    .btn-glow:hover {
+      box-shadow: 0 0 24px rgba(59,130,246,.5);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* ── Project Card Hover ── */
+    .project-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s;
+    }
+    .project-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 12px 40px rgba(59,130,246,.18), 0 0 0 1px rgba(59,130,246,.22);
+    }
+
+    /* ── Navbar Active Link ── */
+    .nav-link {
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: #3b82f6;
+      border-radius: 99px;
+      transition: width .3s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #60a5fa; }
+
+    /* ── Filter Buttons ── */
+    .filter-btn {
+      transition: all .25s cubic-bezier(.16,1,.3,1);
+    }
+    .filter-btn.active {
+      background: #3b82f6;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(59,130,246,.4);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #080c14; }
+    ::-webkit-scrollbar-thumb { background: #1e2d45; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .35;
+    }
+
+    /* ── Section Divider ── */
+    .section-line {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg,#3b82f6,transparent);
+      border-radius: 99px;
+    }
+
+    /* ── Skill Badge ── */
+    .skill-badge {
+      transition: transform .2s, box-shadow .2s;
+    }
+    .skill-badge:hover {
+      transform: translateY(-3px) scale(1.06);
+      box-shadow: 0 4px 16px rgba(59,130,246,.3);
+    }
+
+    /* ── Skill Icon Card (Interactive) ── */
+    .skill-icon-card {
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s;
+      cursor: default;
+    }
+    .skill-icon-card:hover {
+      transform: translateY(-6px) scale(1.08);
+      border-color: rgba(59,130,246,.5) !important;
+      box-shadow: 0 8px 24px rgba(59,130,246,.2), 0 0 0 1px rgba(59,130,246,.15);
+    }
+    .skill-icon-card:hover img {
+      filter: drop-shadow(0 0 8px rgba(59,130,246,.4));
+    }
+    .skill-icon-card img {
+      transition: filter .3s ease;
+    }
+
+    /* ── Hero animated glow orbs ── */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    /* ── Input focus ── */
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 2px rgba(59,130,246,.25);
+    }
+
+    /* ── Scroll Progress Bar ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #6366f1, #38bdf8);
+      z-index: 9999;
+      width: 0%;
+      transition: width .1s linear;
+    }
+
+    /* ── Back to Top ── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(59,130,246,.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(59,130,246,.25);
+      color: #60a5fa;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity .3s, transform .3s, background .2s;
+      cursor: pointer;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      background: rgba(59,130,246,.3);
+      transform: translateY(-3px);
+    }
+
+    /* ── Typing Cursor ── */
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      background: #3b82f6;
+      margin-left: 4px;
+      animation: blink-cursor .75s step-end infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink-cursor {
+      50% { opacity: 0; }
+    }
+
+    /* ── Light Mode ── */
+    html.light body { background-color: #f8fafc; color: #1e293b; }
+    html.light .glass { background: rgba(255,255,255,.72); border-color: rgba(59,130,246,.1); }
+    html.light .glass-card { background: rgba(255,255,255,.7); border-color: rgba(59,130,246,.1); }
+    html.light .text-text { color: #0f172a; }
+    html.light .text-slate { color: #475569; }
+    html.light .text-muted { color: #94a3b8; }
+    html.light .bg-surface\/50 { background: rgba(241,245,249,.5); }
+    html.light .border-border { border-color: #e2e8f0; }
+    html.light .bg-surface { background: #f1f5f9; }
+    html.light .bg-card { background: #ffffff; }
+    html.light body::before { opacity: .08; }
+    html.light #scroll-progress { background: linear-gradient(90deg, #2563eb, #4f46e5, #0ea5e9); }
+    html.light ::-webkit-scrollbar-track { background: #f8fafc; }
+    html.light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+  </style>
+</head>
+
+<body class="relative">
+
+  <!-- Preloader -->
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <div id="preloader" class="fixed inset-0 z-[9999] flex items-center justify-center" style="background:#080c14">
+    <div class="text-center">
+      <div class="font-display font-bold text-3xl mb-4">
+        <span class="text-text">DimsDevv</span><span class="text-accent">.</span>
+      </div>
+      <div class="w-48 h-1 bg-border rounded-full overflow-hidden mx-auto">
+        <div id="preload-bar" class="h-full bg-gradient-to-r from-accent to-accentL rounded-full" style="width:0%;transition:width 1.5s cubic-bezier(.16,1,.3,1)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <nav id="navbar"
+       class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+       aria-label="Navigation utama">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <a href="#hero" class="font-display font-bold text-lg tracking-tight group">
+        <span class="text-text group-hover:text-accentL transition-colors duration-200">DimsDevv</span>
+        <span class="text-accent">.</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium" role="list">
+        <li><a href="#about"      class="nav-link text-slate hover:text-text">Tentang</a></li>
+        <li><a href="#skills"     class="nav-link text-slate hover:text-text">Keahlian</a></li>
+        <li><a href="#experience" class="nav-link text-slate hover:text-text">Pengalaman</a></li>
+        <li><a href="#projects"   class="nav-link text-slate hover:text-text">Proyek</a></li>
+        <li><a href="#contact"    class="nav-link text-slate hover:text-text">Kontak</a></li>
+      </ul>
+
+      <!-- Dark/Light Toggle -->
+      <button id="theme-toggle" aria-label="Toggle tema"
+              class="hidden md:flex w-9 h-9 rounded-xl glass border border-border items-center justify-center
+                     text-slate hover:text-accent hover:border-accent/30 transition-colors">
+        <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+        <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+      </button>
+
+      <a href="#contact"
+         class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium
+                bg-accent/10 border border-accent/30 text-accentL btn-glow">
+        Pekerjakan Saya
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+
+      <button id="menu-btn"
+              class="md:hidden p-2 rounded-lg text-slate hover:text-text focus:outline-none"
+              aria-label="Toggle menu" aria-expanded="false">
+        <svg id="icon-open"  class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu"
+         class="md:hidden hidden glass mx-4 mb-4 rounded-2xl p-6"
+         role="dialog" aria-label="Mobile navigation">
+      <ul class="flex flex-col gap-4 text-sm font-medium" role="list">
+        <li><a href="#about"      class="block text-slate hover:text-text nav-link" onclick="closeMobileMenu()">Tentang</a></li>
+        <li><a href="#skills"     class="block text-slate hover:text-text nav-link" onclick="closeMobileMenu()">Keahlian</a></li>
+        <li><a href="#experience" class="block text-slate hover:text-text nav-link" onclick="closeMobileMenu()">Pengalaman</a></li>
+        <li><a href="#projects"   class="block text-slate hover:text-text nav-link" onclick="closeMobileMenu()">Proyek</a></li>
+        <li><a href="#contact"    class="block text-slate hover:text-text nav-link" onclick="closeMobileMenu()">Kontak</a></li>
+        <li><a href="#contact"    class="btn-glow mt-2 block text-center px-5 py-2.5 rounded-xl text-sm font-medium bg-accent/10 border border-accent/30 text-accentL" onclick="closeMobileMenu()">Pekerjakan Saya →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero"
+           class="relative min-h-screen flex items-center justify-center overflow-hidden
+                  bg-hero-grid">
+
+    <div class="orb w-96 h-96 bg-blue-600/20 top-10 -left-24" style="animation-delay:0s"></div>
+    <div class="orb w-80 h-80 bg-indigo-600/15 bottom-20 right-0"   style="animation-delay:2s"></div>
+    <div class="orb w-64 h-64 bg-cyan-500/10  top-1/2  left-1/2 -translate-x-1/2 -translate-y-1/2" style="animation-delay:4s"></div>
+
+    <div class="absolute top-28 right-16 w-48 h-48 border border-accent/10 rounded-full animate-spin-slow pointer-events-none hidden lg:block"></div>
+    <div class="absolute top-36 right-24 w-32 h-32 border border-accent/5  rounded-full animate-spin-slow pointer-events-none hidden lg:block" style="animation-direction:reverse"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 grid lg:grid-cols-2 gap-12 items-center">
+
+      <div>
+
+
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6">
+          <span class="gradient-text">Web Developer</span>
+          <br />
+          <span class="text-muted">& Data Science</span>
+        </h1>
+
+        <p class="text-slate text-base sm:text-lg leading-relaxed max-w-md mb-10">
+          Halo, saya <span class="text-text font-medium">Dimas Sholihulhadi</span>, mahasiswa Sistem Informasi di Itenas yang memiliki fokus di bidang Web Development dan antusiasme tinggi terhadap Data Science. Saya senang merancang dan membangun solusi digital yang tidak hanya berfungsi dengan baik, tetapi juga memberikan dampak nyata bagi pengguna. Lewat kombinasi logika data dan pengembangan web, saya terus belajar untuk menciptakan karya yang inovatif dan bermanfaat.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#projects"
+             class="btn-glow px-7 py-3.5 rounded-xl font-display font-semibold text-sm
+                    bg-accent text-white">
+            Lihat Karya Saya ↓
+          </a>
+          <a href="CV DIMAS SHOLIHULHADI.pdf" download
+             class="btn-glow px-7 py-3.5 rounded-xl font-display font-semibold text-sm
+                    glass border border-border text-text hover:border-accent/40 inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
+            Download CV
+          </a>
+        </div>
+
+        <div class="flex gap-8 mt-12 pt-8 border-t border-border">
+          <div>
+            <p class="font-display font-bold text-2xl text-text"><span class="counter" data-target="2">0</span>+</p>
+            <p class="text-muted text-xs mt-0.5">Tahun Ngoding</p>
+          </div>
+          <div>
+            <p class="font-display font-bold text-2xl text-text"><span class="counter" data-target="8">0</span>+</p>
+            <p class="text-muted text-xs mt-0.5">Proyek Selesai</p>
+          </div>
+          <div>
+            <p class="font-display font-bold text-2xl text-text"><span class="counter" data-target="22">0</span></p>
+            <p class="text-muted text-xs mt-0.5">Teknologi</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center lg:justify-end">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-sm relative animate-float">
+          
+          <div class="relative mx-auto w-28 h-26 rounded-full overflow-hidden mb-5 ring-4 ring-accent/30 bg-surface flex items-center justify-center">
+            <img src="foto1.jpeg" alt="Dimas Sholihulhadi" class="w-full h-full object-cover" />
+          </div>
+
+          <h3 class="font-display font-bold text-lg text-center text-text mb-1">Dimas Sholihulhadi</h3>
+          <p class="text-xs text-center text-accentL mb-5">Sistem Informasi @ Itenas · Web Developer</p>
+
+          <div class="flex flex-wrap gap-2 justify-center mb-5">
+            <span class="px-3 py-1 rounded-lg bg-accent/10 border border-accent/20 text-xs text-accentL flex items-center gap-1.5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" class="w-3.5 h-3.5" alt="" /> React</span>
+            <span class="px-3 py-1 rounded-lg bg-accent/10 border border-accent/20 text-xs text-accentL flex items-center gap-1.5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" class="w-3.5 h-3.5" alt="" /> Node.js</span>
+            <span class="px-3 py-1 rounded-lg bg-accent/10 border border-accent/20 text-xs text-accentL flex items-center gap-1.5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" class="w-3.5 h-3.5" alt="" /> TypeScript</span>
+            <span class="px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300 flex items-center gap-1.5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" class="w-3.5 h-3.5" alt="" /> Python</span>
+            <span class="px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-300 flex items-center gap-1.5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" class="w-3.5 h-3.5 invert" alt="" /> Prisma</span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-xl bg-surface/70 px-4 py-3 border border-border">
+            <div class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse flex-shrink-0"></div>
+            <p class="text-xs text-slate">Sedang menempuh SI di <span class="text-text">Itenas Bandung</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted text-xs animate-bounce">
+      <span class="font-body tracking-widest uppercase text-[10px]">Scroll</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="about" class="relative py-28 max-w-6xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <div class="reveal-left">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="section-line"></div>
+          <span class="text-xs font-medium text-accent tracking-widest uppercase">Tentang Saya</span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-text leading-tight mb-6">
+          Dari <span class="gradient-text">RPL</span> hingga
+          <br />Sistem Informasi
+        </h2>
+
+        <p class="text-slate leading-relaxed mb-5">
+          Perjalanan saya dimulai dari bangku <strong class="text-text">SMK Rekayasa Perangkat Lunak (RPL)</strong>,
+          di mana saya pertama kali jatuh cinta dengan dunia coding — membangun website sederhana
+          hingga aplikasi berbasis database.
+        </p>
+        <p class="text-slate leading-relaxed mb-5">
+          Kini saya menempuh studi <strong class="text-text">Sistem Informasi di Institut Teknologi Nasional (Itenas) Bandung</strong>,
+          memperluas perspektif ke ranah arsitektur sistem, manajemen data, dan analitik.
+        </p>
+        <p class="text-slate leading-relaxed mb-8">
+          Di luar kuliah, saya aktif mengeksplorasi <strong class="text-text">Data Science dengan Python</strong> —
+          dari manipulasi data dengan Pandas hingga visualisasi dan model machine learning sederhana.
+          Saya percaya kombinasi Web Development dan Data Science adalah senjata masa depan.
+        </p>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-accent text-lg mb-1">🎯</p>
+            <p class="font-display font-semibold text-text text-sm">Berorientasi Detail</p>
+            <p class="text-muted text-xs mt-0.5">Kode bersih adalah kewajiban</p>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-accent text-lg mb-1">📊</p>
+            <p class="font-display font-semibold text-text text-sm">Berbasis Data</p>
+            <p class="text-muted text-xs mt-0.5">Keputusan didukung analisis</p>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-accent text-lg mb-1">🚀</p>
+            <p class="font-display font-semibold text-text text-sm">Pembelajar Cepat</p>
+            <p class="text-muted text-xs mt-0.5">Cepat adaptasi teknologi baru</p>
+          </div>
+          <div class="glass-card rounded-xl p-4">
+            <p class="text-accent text-lg mb-1">🤝</p>
+            <p class="font-display font-semibold text-text text-sm">Kolaboratif</p>
+            <p class="text-muted text-xs mt-0.5">Berkembang di dalam tim</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <h3 class="font-display font-semibold text-text mb-6 text-lg">Perjalanan Pendidikan</h3>
+        <div class="relative pl-6">
+          <div class="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-accent via-indigo-500 to-transparent"></div>
+
+          <div class="relative mb-8">
+            <div class="absolute -left-[26px] w-4 h-4 rounded-full bg-accent border-2 border-bg"></div>
+            <div class="glass-card rounded-2xl p-5">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs text-accentL font-medium bg-accent/10 px-2 py-0.5 rounded">2022 – Sekarang</span>
+              </div>
+              <h4 class="font-display font-semibold text-text">S1 Sistem Informasi</h4>
+              <p class="text-slate text-sm">Institut Teknologi Nasional (Itenas), Bandung</p>
+              <p class="text-muted text-xs mt-2">Fokus: Software Engineering, Database Systems, Data Science</p>
+            </div>
+          </div>
+
+          <div class="relative mb-8">
+            <div class="absolute -left-[26px] w-4 h-4 rounded-full bg-indigo-500 border-2 border-bg"></div>
+            <div class="glass-card rounded-2xl p-5">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs text-indigo-300 font-medium bg-indigo-500/10 px-2 py-0.5 rounded">2019 – 2022</span>
+              </div>
+              <h4 class="font-display font-semibold text-text">SMK Rekayasa Perangkat Lunak</h4>
+              <p class="text-slate text-sm">Jurusan RPL — Web & Software Development</p>
+              <p class="text-muted text-xs mt-2">Dasar HTML/CSS, PHP, MySQL, dan logika pemrograman</p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute -left-[26px] w-4 h-4 rounded-full bg-cyan-500 border-2 border-bg"></div>
+            <div class="glass-card rounded-2xl p-5 border-dashed">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs text-cyan-300 font-medium bg-cyan-500/10 px-2 py-0.5 rounded">Sedang Berjalan</span>
+              </div>
+              <h4 class="font-display font-semibold text-text">Otodidak: Data Science</h4>
+              <p class="text-slate text-sm">Python · Pandas · NumPy · Matplotlib · Scikit-learn</p>
+              <p class="text-muted text-xs mt-2">Kursus online, dataset Kaggle, proyek personal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Foto Diri (9:16 aspect ratio) -->
+        <div class="grid grid-cols-3 gap-3 mt-10">
+          <div class="group rounded-2xl overflow-hidden border border-accent/20 hover:border-accent/50 transition-all duration-500 shadow-glass hover:shadow-glow" style="aspect-ratio:9/16">
+            <img src="foto2.jpeg" alt="Dimas - Foto 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          </div>
+          <div class="group rounded-2xl overflow-hidden border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-500 shadow-glass hover:shadow-glow mt-6" style="aspect-ratio:9/16">
+            <img src="foto3.jpeg" alt="Dimas - Foto 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          </div>
+          <div class="group rounded-2xl overflow-hidden border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-500 shadow-glass hover:shadow-glow" style="aspect-ratio:9/16">
+            <img src="foto4.jpeg" alt="Dimas - Foto 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="py-28 bg-surface/50 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="section-line"></div>
+          <span class="text-xs font-medium text-accent tracking-widest uppercase">Keahlian</span>
+          <div class="section-line rotate-180"></div>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-text">Peralatan <span class="gradient-text">Teknologi Saya</span></h2>
+        <p class="text-slate mt-4 max-w-md mx-auto">Alat dan teknologi yang saya gunakan untuk menciptakan pengalaman digital dan mengekstrak wawasan dari data.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 justify-center mb-10 reveal" id="skill-filters">
+        <button data-filter="all"     class="filter-btn active px-5 py-2 rounded-xl text-sm font-medium glass border border-border text-text">Semua</button>
+        <button data-filter="webdev"  class="filter-btn        px-5 py-2 rounded-xl text-sm font-medium glass border border-border text-slate">Web Dev</button>
+        <button data-filter="data"    class="filter-btn        px-5 py-2 rounded-xl text-sm font-medium glass border border-border text-slate">Data & Sistem</button>
+      </div>
+
+      <div class="bento-grid" id="skills-grid">
+
+        <!-- Kategori 1: Web Frontend -->
+        <div class="bento-6 glass-card rounded-3xl p-6 sm:p-8 reveal skill-item" data-category="webdev">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-xl">🌐</div>
+            <div>
+              <h3 class="font-display font-bold text-text">Web Frontend</h3>
+              <p class="text-muted text-xs">UI/UX & Client-side</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" class="w-8 h-8" /><span class="text-[10px] text-slate">HTML5</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" class="w-8 h-8" /><span class="text-[10px] text-slate">CSS3</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" class="w-8 h-8" /><span class="text-[10px] text-slate">JavaScript</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" class="w-8 h-8" /><span class="text-[10px] text-slate">React.js</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" class="w-8 h-8" /><span class="text-[10px] text-slate">Tailwind</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" alt="Vite" class="w-8 h-8" /><span class="text-[10px] text-slate">Vite</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kategori 2: Backend & Database -->
+        <div class="bento-6 glass-card rounded-3xl p-6 sm:p-8 reveal skill-item" data-category="webdev" style="transition-delay:.1s">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center text-xl">⚙️</div>
+            <div>
+              <h3 class="font-display font-bold text-text">Backend & Database</h3>
+              <p class="text-muted text-xs">Server, API & Data Storage</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" class="w-8 h-8" /><span class="text-[10px] text-slate">Node.js</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP" class="w-8 h-8" /><span class="text-[10px] text-slate">PHP</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="MySQL" class="w-8 h-8" /><span class="text-[10px] text-slate">MySQL</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="w-8 h-8" /><span class="text-[10px] text-slate">PostgreSQL</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" alt="Supabase" class="w-8 h-8" /><span class="text-[10px] text-slate">Supabase</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" alt="Prisma" class="w-8 h-8 invert" /><span class="text-[10px] text-slate">Prisma</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kategori 3: Data & System -->
+        <div class="bento-6 glass-card rounded-3xl p-6 sm:p-8 reveal skill-item" data-category="data" style="transition-delay:.2s">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center text-xl">🐍</div>
+            <div>
+              <h3 class="font-display font-bold text-text">Data Science & System</h3>
+              <p class="text-muted text-xs">Analytics, ML & Core Programming</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" class="w-8 h-8" /><span class="text-[10px] text-slate">Python</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas" class="w-8 h-8" /><span class="text-[10px] text-slate">Pandas</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="NumPy" class="w-8 h-8" /><span class="text-[10px] text-slate">NumPy</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" class="w-8 h-8" /><span class="text-[10px] text-slate">Matplotlib</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" alt="C" class="w-8 h-8" /><span class="text-[10px] text-slate">C</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++" class="w-8 h-8" /><span class="text-[10px] text-slate">C++</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" class="w-8 h-8" /><span class="text-[10px] text-slate">Java</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kategori 4: Tools & Cloud -->
+        <div class="bento-6 glass-card rounded-3xl p-6 sm:p-8 reveal skill-item" data-category="webdev" style="transition-delay:.3s">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center text-xl">🛠️</div>
+            <div>
+              <h3 class="font-display font-bold text-text">Tools, Cloud & AI</h3>
+              <p class="text-muted text-xs">Deployment, Version Control & Utilities</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" class="w-8 h-8" /><span class="text-[10px] text-slate">Git</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert" /><span class="text-[10px] text-slate">GitHub</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg" alt="npm" class="w-8 h-8" /><span class="text-[10px] text-slate">npm</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" class="w-8 h-8" /><span class="text-[10px] text-slate">Docker</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="GCP" class="w-8 h-8" /><span class="text-[10px] text-slate">GCP</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="vercel.png" alt="Vercel" class="w-8 h-8 invert" /><span class="text-[10px] text-slate">Vercel</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="claudee.png" alt="Claude AI" class="w-8 h-8" /><span class="text-[10px] text-slate">Claude AI</span>
+            </div>
+            <div class="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border">
+              <img src="draw.png" alt="Draw.io" class="w-8 h-8" /><span class="text-[10px] text-slate">Draw.io</span>
+            </div>
+          </div>
+        </div>
+
+      </div></div>
+  </section>
+
+  <section id="experience" class="py-28 max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="section-line"></div>
+        <span class="text-xs font-medium text-accent tracking-widest uppercase">Pengalaman</span>
+        <div class="section-line rotate-180"></div>
+      </div>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold text-text">Pengalaman <span class="gradient-text">Kerja</span></h2>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-6">
+
+      <div class="glass-card rounded-3xl p-8 reveal relative overflow-hidden group hover:border-accent/30 transition-colors duration-300">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent to-indigo-500 rounded-l-3xl"></div>
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-accent/15 flex-shrink-0 flex items-center justify-center text-2xl">🕌</div>
+            <div>
+              <h3 class="font-display font-bold text-text text-lg">Magang Web Developer</h3>
+              <p class="text-accentL text-sm font-medium">Pesantren · Internship Ponpes</p>
+              <p class="text-muted text-xs mt-1">Pengembangan web full-stack untuk sistem manajemen internal</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-accent/10 border border-accent/20 text-xs text-accentL whitespace-nowrap self-start sm:self-center">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+            2022
+          </span>
+        </div>
+
+        <div class="mt-6 pl-16">
+          <ul class="space-y-2">
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-accent mt-0.5 flex-shrink-0">▸</span>
+              Membangun sistem informasi berbasis web menggunakan HTML, CSS, PHP, dan MySQL.
+            </li>
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-accent mt-0.5 flex-shrink-0">▸</span>
+              Merancang antarmuka yang responsif dan ramah pengguna untuk pengelolaan data santri.
+            </li>
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-accent mt-0.5 flex-shrink-0">▸</span>
+              Berkoordinasi langsung dengan staf pesantren untuk analisis kebutuhan sistem.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="px-2.5 py-1 rounded-lg bg-surface border border-border text-xs text-slate">PHP</span>
+            <span class="px-2.5 py-1 rounded-lg bg-surface border border-border text-xs text-slate">MySQL</span>
+            <span class="px-2.5 py-1 rounded-lg bg-surface border border-border text-xs text-slate">HTML/CSS</span>
+            <span class="px-2.5 py-1 rounded-lg bg-surface border border-border text-xs text-slate">Bootstrap</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 reveal relative overflow-hidden" style="transition-delay:.1s">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-l-3xl"></div>
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/15 flex-shrink-0 flex items-center justify-center text-2xl">🎓</div>
+            <div>
+              <h3 class="font-display font-bold text-text text-lg">Mahasiswa Pengembang</h3>
+              <p class="text-indigo-300 text-sm font-medium">Itenas · Proyek Akademik & Personal</p>
+              <p class="text-muted text-xs mt-1">Membangun aplikasi web dan mengeksplorasi konsep data science</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300 whitespace-nowrap self-start sm:self-center">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+            2022 – Sekarang
+          </span>
+        </div>
+        <div class="mt-6 pl-16">
+          <ul class="space-y-2">
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-indigo-400 mt-0.5 flex-shrink-0">▸</span>
+              Mengerjakan proyek mata kuliah berbasis web dan analisis data.
+            </li>
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-indigo-400 mt-0.5 flex-shrink-0">▸</span>
+              Eksplorasi data menggunakan Python: cleaning, visualisasi, dan analisis sederhana.
+            </li>
+            <li class="flex gap-2 text-slate text-sm">
+              <span class="text-indigo-400 mt-0.5 flex-shrink-0">▸</span>
+              Membangun proyek-proyek personal untuk memperkuat portofolio.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="projects" class="py-28 bg-surface/50 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16 reveal">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="section-line"></div>
+          <span class="text-xs font-medium text-accent tracking-widest uppercase">Proyek</span>
+          <div class="section-line rotate-180"></div>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-text">Karya <span class="gradient-text">Pilihan</span></h2>
+        <p class="text-slate mt-4 max-w-md mx-auto">Proyek-proyek yang menunjukkan kemampuan saya dalam membangun produk digital yang fungsional dan berdesain menarik.</p>
+      </div>
+
+      <div class="bento-grid" id="projects-grid">
+
+        <!-- ★ TaskFlow Genius ★ -->
+        <div class="bento-4 project-card glass-card rounded-3xl overflow-hidden reveal project-item" data-category="web">
+          <div class="relative h-48 overflow-hidden group">
+            <img src="taskflow_preview.png" alt="TaskFlow Preview" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent"></div>
+          </div>
+          <div class="p-6 pt-4 flex flex-col h-[calc(100%-12rem)] min-h-[300px]">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl flex-shrink-0">🚀</div>
+              <div class="flex gap-2">
+                <a href="https://taskflow-genius.vercel.app/" aria-label="Demo Langsung" target="_blank" rel="noopener noreferrer"
+                   class="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-slate hover:text-accent hover:border-accent/30 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+                <a href="https://github.com/dimsdevv/taskflow-genius" aria-label="GitHub" target="_blank" rel="noopener noreferrer"
+                   class="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-slate hover:text-accent hover:border-accent/30 transition-colors">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="font-display font-bold text-text text-xl">TaskFlow Genius</h3>
+              <span class="px-2 py-0.5 rounded-lg bg-green-500/15 border border-green-500/25 text-[10px] text-green-300 font-medium uppercase tracking-wide">Live</span>
+            </div>
+            <p class="text-slate text-sm leading-relaxed mb-5 flex-grow">
+              Aplikasi manajemen tugas (Kanban) berbasis Full-stack React dengan fitur Drag-and-Drop dan integrasi AI NLP untuk penentuan deadline otomatis.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300">React.js</span>
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300">Node.js</span>
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300">Prisma</span>
+              <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300">NLP</span>
+            </div>
+          </div>
+          <div class="h-1 w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-500"></div>
+        </div>
+
+        <!-- ★ BeanPay POS ★ -->
+        <div class="bento-4 project-card glass-card rounded-3xl overflow-hidden reveal project-item" data-category="web" style="transition-delay:.1s">
+          <div class="relative h-48 overflow-hidden group">
+            <img src="beanpay_preview.png" alt="BeanPay POS Preview" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent"></div>
+          </div>
+          <div class="p-6 pt-4 flex flex-col h-[calc(100%-12rem)] min-h-[300px]">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-2xl flex-shrink-0">☕</div>
+              <div class="flex gap-2">
+                <a href="https://dimsdevv.alwaysdata.net/" aria-label="Demo Langsung" target="_blank" rel="noopener noreferrer"
+                   class="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-slate hover:text-accent hover:border-accent/30 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+                <a href="https://github.com/dimsdevv/beanpay-pos" aria-label="GitHub" target="_blank" rel="noopener noreferrer"
+                   class="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-slate hover:text-accent hover:border-accent/30 transition-colors">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="font-display font-bold text-text text-xl">BeanPay POS</h3>
+              <span class="px-2 py-0.5 rounded-lg bg-green-500/15 border border-green-500/25 text-[10px] text-green-300 font-medium uppercase tracking-wide">Live</span>
+            </div>
+            <p class="text-slate text-sm leading-relaxed mb-5 flex-grow">
+              Sistem POS kasir untuk kedai kopi. Dilengkapi manajemen meja realtime, pembayaran QRIS, Kitchen Display System (KDS), dan laporan.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">PHP</span>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">MySQL</span>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">JavaScript</span>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300">Real-time</span>
+            </div>
+          </div>
+          <div class="h-1 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500"></div>
+        </div>
+
+        <!-- ★ Mortyxvoid Store ★ -->
+        <div class="bento-4 project-card glass-card rounded-3xl overflow-hidden reveal project-item" data-category="web" style="transition-delay:.2s">
+          <div class="relative h-48 overflow-hidden group">
+            <img src="mortyxvoid_preview.png" alt="Mortyxvoid Store Preview" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent"></div>
+          </div>
+          <div class="p-6 pt-4 flex flex-col h-[calc(100%-12rem)] min-h-[300px]">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-2xl flex-shrink-0">🛒</div>
+              <div class="flex gap-2">
+                <a href="https://mortyxvoid.shop/" aria-label="Demo Langsung" target="_blank" rel="noopener noreferrer"
+                   class="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-slate hover:text-accent hover:border-accent/30 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="font-display font-bold text-text text-xl">Mortyxvoid Store</h3>
+              <span class="px-2 py-0.5 rounded-lg bg-green-500/15 border border-green-500/25 text-[10px] text-green-300 font-medium uppercase tracking-wide">Live</span>
+            </div>
+            <p class="text-slate text-sm leading-relaxed mb-5 flex-grow">
+              Platform e-commerce katalog produk dengan sistem keranjang belanja dinamis dan checkout responsif bergaya modern.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300">HTML</span>
+              <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300">Tailwind</span>
+              <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300">PHP</span>
+              <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300">JS</span>
+            </div>
+          </div>
+          <div class="h-1 w-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500"></div>
+        </div>
+
+      </div><div class="text-center mt-12 reveal">
+        <a href="https://github.com/dimsdevv" target="_blank" rel="noopener noreferrer"
+           class="btn-glow inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-display font-semibold
+                  glass border border-border text-text hover:border-accent/30">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          Lihat Semua Proyek di GitHub
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact" class="py-28 max-w-6xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16">
+
+      <div class="reveal-left">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="section-line"></div>
+          <span class="text-xs font-medium text-accent tracking-widest uppercase">Kontak</span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-text leading-tight mb-6">
+          Mari Bangun <br /><span class="gradient-text">Sesuatu yang Hebat</span>
+        </h2>
+        <p class="text-slate leading-relaxed mb-10">
+          Terbuka untuk peluang magang, proyek freelance, kolaborasi, atau sekadar ngobrol tentang
+          teknologi dan data. Jangan ragu untuk menghubungi saya!
+        </p>
+
+        <div class="space-y-4 mb-10">
+          <a href="mailto:dmscmail0@gmail.com"
+             class="flex items-center gap-4 glass-card rounded-2xl p-4 group hover:border-accent/30 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center text-accent flex-shrink-0
+                        group-hover:bg-accent/25 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-muted">Email</p>
+              <p class="text-text text-sm font-medium">dmscmail0@gmail.com</p>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/dimassholihulhadi" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-4 glass-card rounded-2xl p-4 group hover:border-accent/30 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-400 flex-shrink-0
+                        group-hover:bg-blue-600/25 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-muted">LinkedIn</p>
+              <p class="text-text text-sm font-medium">linkedin.com/in/dimassholihulhadi</p>
+            </div>
+          </a>
+
+          <a href="https://github.com/dimsdevv" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-4 glass-card rounded-2xl p-4 group hover:border-accent/30 transition-colors">
+            <div class="w-10 h-10 rounded-xl bg-slate/10 flex items-center justify-center text-slate flex-shrink-0
+                        group-hover:bg-slate/20 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-muted">GitHub</p>
+              <p class="text-text text-sm font-medium">github.com/dimsdevv</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-2 text-muted text-sm">
+          <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Bandung, Jawa Barat — Indonesia 🇮🇩
+        </div>
+      </div>
+
+      <div class="reveal-right flex flex-col justify-center">
+        <div class="glass-card rounded-3xl p-8 lg:p-10 text-center relative overflow-hidden">
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+          
+          <div class="w-16 h-16 mx-auto bg-accent/15 rounded-2xl flex items-center justify-center text-accent mb-6 shadow-glow-sm relative z-10">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.476 0 1.46 1.065 2.871 1.213 3.069.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+          </div>
+          
+          <h3 class="font-display font-bold text-text text-2xl mb-3 relative z-10">Kirim Pesan Langsung</h3>
+          <p class="text-slate text-sm mb-8 leading-relaxed relative z-10">
+            Untuk respons yang lebih cepat dan simpel, mari mengobrol langsung melalui WhatsApp. Klik tombol di bawah ini untuk memulai percakapan dengan saya.
+          </p>
+          
+          <a href="https://wa.me/6289654297309?text=Halo%20Dimas,%20saya%20tertarik%20untuk%20berdiskusi..." 
+             target="_blank" rel="noopener noreferrer"
+             class="btn-glow inline-flex w-full sm:w-auto py-4 px-8 rounded-xl font-display font-semibold text-sm
+                    bg-accent text-white items-center justify-center gap-3 relative z-10">
+            Chat via WhatsApp
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" aria-label="Kembali ke atas">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
+
+  <footer class="border-t border-border py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-muted text-sm">
+                © <span id="copy-year">2026</span> <span class="text-text">Dimas Sholihulhadi</span>. Dibuat dengan 💙 &amp; COPYRIGHT.
+      </p>
+      <div class="flex items-center gap-6 text-muted text-xs">
+        <a href="#hero"     class="hover:text-accent transition-colors">Beranda</a>
+        <a href="#about"    class="hover:text-accent transition-colors">Tentang</a>
+        <a href="#projects" class="hover:text-accent transition-colors">Proyek</a>
+        <a href="#contact"  class="hover:text-accent transition-colors">Kontak</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================
+       1. CUSTOM CURSOR
+    ============================================ */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+
+    let mouseX = 0, mouseY = 0;
+    let ringX  = 0, ringY  = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      // Dot follows instantly
+      dot.style.left = mouseX + 'px';
+      dot.style.top  = mouseY + 'px';
+    });
+
+    // Ring follows with lag using requestAnimationFrame
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.14;
+      ringY += (mouseY - ringY) * 0.14;
+      ring.style.left = ringX + 'px';
+      ring.style.top  = ringY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Enlarge ring on interactive elements
+    document.querySelectorAll('a, button, [role="button"]').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width  = '52px';
+        ring.style.height = '52px';
+        ring.style.borderColor = 'rgba(59,130,246,.8)';
+        dot.style.opacity = '0';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width  = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(59,130,246,.5)';
+        dot.style.opacity = '1';
+      });
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+
+    /* ============================================
+       2. NAVBAR — glass + scroll behaviour
+    ============================================ */
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+      // Glassmorphism on scroll
+      if (window.scrollY > 30) {
+        navbar.classList.add('glass', 'shadow-glass');
+        navbar.style.borderBottom = '1px solid rgba(59,130,246,.1)';
+      } else {
+        navbar.classList.remove('glass', 'shadow-glass');
+        navbar.style.borderBottom = 'none';
+      }
+
+      // Active link highlight
+      let currentId = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) currentId = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      });
+    });
+
+    /* ============================================
+       3. MOBILE MENU TOGGLE
+    ============================================ */
+    const menuBtn    = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen   = document.getElementById('icon-open');
+    const iconClose  = document.getElementById('icon-close');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', isOpen);
+      iconOpen.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    // Expose globally for onclick attributes
+    window.closeMobileMenu = closeMobileMenu;
+
+    /* ============================================
+       4. SCROLL REVEAL — IntersectionObserver
+    ============================================ */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Trigger progress bars if inside observed element
+          entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+          revealObserver.unobserve(entry.target); // animate once
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // Also observe progress bars that might not be inside a reveal wrapper
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.width = entry.target.dataset.width + '%';
+          progressObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.progress-fill').forEach(bar => {
+      progressObserver.observe(bar);
+    });
+
+    /* ============================================
+       5. SKILL FILTER
+    ============================================ */
+    const skillFilters = document.getElementById('skill-filters');
+    const skillItems   = document.querySelectorAll('.skill-item');
+
+    skillFilters.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      // Update active button
+      skillFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      skillItems.forEach(item => {
+        const match = filter === 'all' || item.dataset.category === filter;
+        item.style.transition   = 'opacity .35s ease, transform .35s ease';
+        item.style.opacity      = match ? '1' : '0.25';
+        item.style.transform    = match ? 'scale(1)' : 'scale(0.97)';
+        item.style.pointerEvents = match ? 'auto' : 'none';
+      });
+    });
+
+    /* ============================================
+       6. PROJECT FILTER
+    ============================================ */
+    const projectFilters = document.getElementById('project-filters');
+    const projectItems   = document.querySelectorAll('.project-item');
+
+    if (projectFilters) {
+      projectFilters.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+
+        projectFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        projectItems.forEach(item => {
+          const match = filter === 'all' || item.dataset.category === filter;
+          item.style.transition    = 'opacity .35s ease, transform .35s ease';
+          item.style.opacity       = match ? '1' : '0.2';
+          item.style.transform     = match ? 'scale(1)' : 'scale(0.97)';
+          item.style.pointerEvents  = match ? 'auto' : 'none';
+        });
+      });
+    }
+
+    /* ============================================
+       7. SMOOTH SCROLL for anchor links
+    ============================================ */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* ============================================
+       8. STAGGERED REVEAL delay for grid children
+    ============================================ */
+    document.querySelectorAll('.bento-grid').forEach(grid => {
+      grid.querySelectorAll('.reveal').forEach((child, i) => {
+        // Only add delay if not already set
+        if (!child.style.transitionDelay) {
+          child.style.transitionDelay = `${i * 0.08}s`;
+        }
+      });
+    });
+
+    /* ============================================
+       9. PRELOADER
+    ============================================ */
+    window.addEventListener('load', () => {
+      const bar = document.getElementById('preload-bar');
+      const preloader = document.getElementById('preloader');
+      if (bar) bar.style.width = '100%';
+      setTimeout(() => {
+        if (preloader) {
+          preloader.style.transition = 'opacity .5s ease';
+          preloader.style.opacity = '0';
+          setTimeout(() => preloader.remove(), 500);
+        }
+      }, 1600);
+    });
+
+    /* ============================================
+       10. DYNAMIC COPYRIGHT YEAR
+    ============================================ */
+    const yearEl = document.getElementById('copy-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ============================================
+       11. TYPING ANIMATION
+    ============================================ */
+    const typedEl = document.getElementById('typed-text');
+    if (typedEl) {
+      const words = ['Web Developer', 'Data Enthusiast', 'UI Designer', 'Problem Solver'];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeLoop() {
+        const current = words[wordIndex];
+        typedEl.textContent = isDeleting
+          ? current.substring(0, charIndex--)
+          : current.substring(0, charIndex++);
+
+        let delay = isDeleting ? 40 : 90;
+
+        if (!isDeleting && charIndex > current.length) {
+          delay = 2200; // pause at full word
+          isDeleting = true;
+        } else if (isDeleting && charIndex < 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          delay = 400;
+        }
+        setTimeout(typeLoop, delay);
+      }
+      // Start after preloader
+      setTimeout(typeLoop, 2200);
+    }
+
+    /* ============================================
+       12. COUNTER ANIMATION
+    ============================================ */
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = +el.dataset.target;
+          const duration = 1500;
+          const start = performance.now();
+
+          function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+            el.textContent = Math.floor(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+          }
+          requestAnimationFrame(step);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+    /* ============================================
+       13. SCROLL PROGRESS BAR
+    ============================================ */
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      if (progressBar) {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = percent + '%';
+      }
+    }, { passive: true });
+
+    /* ============================================
+       14. BACK TO TOP BUTTON
+    ============================================ */
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 500);
+      }, { passive: true });
+
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* ============================================
+       15. DARK / LIGHT MODE TOGGLE
+    ============================================ */
+    const themeToggle = document.getElementById('theme-toggle');
+    const iconMoon = document.getElementById('icon-moon');
+    const iconSun = document.getElementById('icon-sun');
+
+    // Check saved preference
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light');
+      if (iconMoon) iconMoon.classList.add('hidden');
+      if (iconSun) iconSun.classList.remove('hidden');
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('light');
+        const isLight = document.documentElement.classList.contains('light');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+
+        if (iconMoon && iconSun) {
+          iconMoon.classList.toggle('hidden', isLight);
+          iconSun.classList.toggle('hidden', !isLight);
+        }
+      });
+    }
+
+  </script>
+
+</body>
+</html>
