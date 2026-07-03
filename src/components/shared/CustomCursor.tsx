@@ -1,73 +1,70 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const glowRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useGSAP(() => {
     const dot = dotRef.current
     const ring = ringRef.current
     const glow = glowRef.current
     if (!dot || !ring || !glow) return
 
-    let mouseX = 0
-    let mouseY = 0
-    let ringX = 0
-    let ringY = 0
-    let glowX = 0
-    let glowY = 0
+    // Create highly optimized quickTo functions
+    const xDot = gsap.quickTo(dot, 'left', { duration: 0, ease: 'none' })
+    const yDot = gsap.quickTo(dot, 'top', { duration: 0, ease: 'none' })
+    
+    const xRing = gsap.quickTo(ring, 'left', { duration: 0.15, ease: 'power3.out' })
+    const yRing = gsap.quickTo(ring, 'top', { duration: 0.15, ease: 'power3.out' })
+    
+    const xGlow = gsap.quickTo(glow, 'left', { duration: 0.3, ease: 'power3.out' })
+    const yGlow = gsap.quickTo(glow, 'top', { duration: 0.3, ease: 'power3.out' })
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      dot.style.left = mouseX + 'px'
-      dot.style.top = mouseY + 'px'
+      // GSAP quickTo expects numbers and will append 'px' for left/top
+      const x = e.clientX
+      const y = e.clientY
+      
+      xDot(x)
+      yDot(y)
+      
+      xRing(x)
+      yRing(y)
+      
+      xGlow(x)
+      yGlow(y)
     }
-
-    function animateCursor() {
-      // Ring follows with smooth lag
-      ringX += (mouseX - ringX) * 0.12
-      ringY += (mouseY - ringY) * 0.12
-      ring!.style.left = ringX + 'px'
-      ring!.style.top = ringY + 'px'
-
-      // Glow follows with even more lag (ultra smooth)
-      glowX += (mouseX - glowX) * 0.06
-      glowY += (mouseY - glowY) * 0.06
-      glow!.style.left = glowX + 'px'
-      glow!.style.top = glowY + 'px'
-
-      requestAnimationFrame(animateCursor)
-    }
-    animateCursor()
 
     document.addEventListener('mousemove', handleMouseMove)
 
-    // Enlarge on interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [role="button"], input, textarea')
-    const handleEnter = () => {
-      document.body.classList.add('cursor-hover')
-    }
-    const handleLeave = () => {
-      document.body.classList.remove('cursor-hover')
+    // Enlarge on interactive elements using event delegation
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.classList.contains('cursor-pointer') ||
+        target.closest('.cursor-pointer')
+      ) {
+        document.body.classList.add('cursor-hover')
+      } else {
+        document.body.classList.remove('cursor-hover')
+      }
     }
 
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleEnter)
-      el.addEventListener('mouseleave', handleLeave)
-    })
+    document.addEventListener('mouseover', handleMouseOver)
 
-    // Hide on leave
+    // Hide on leave window
     const handleDocLeave = () => {
-      dot.style.opacity = '0'
-      ring.style.opacity = '0'
-      glow.style.opacity = '0'
+      gsap.to([dot, ring, glow], { opacity: 0, duration: 0.3 })
     }
     const handleDocEnter = () => {
-      dot.style.opacity = '1'
-      ring.style.opacity = '1'
-      glow.style.opacity = '1'
+      gsap.to([dot, ring, glow], { opacity: 1, duration: 0.3 })
     }
 
     document.addEventListener('mouseleave', handleDocLeave)
@@ -75,12 +72,10 @@ export default function CustomCursor() {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseleave', handleDocLeave)
       document.removeEventListener('mouseenter', handleDocEnter)
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleEnter)
-        el.removeEventListener('mouseleave', handleLeave)
-      })
+      document.body.classList.remove('cursor-hover')
     }
   }, [])
 

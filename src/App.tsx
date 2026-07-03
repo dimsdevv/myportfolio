@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import { useScrollRevealAll } from '@/hooks/useScrollReveal'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CustomCursor from '@/components/shared/CustomCursor'
@@ -13,22 +14,10 @@ import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Contact from '@/components/sections/Contact'
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger)
+
 export default function App() {
-  useScrollRevealAll()
-
-  // Re-run scroll reveal after preloader hides
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
-        const rect = el.getBoundingClientRect()
-        if (rect.top < window.innerHeight) {
-          el.classList.add('visible')
-        }
-      })
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <div className="relative">
       <Preloader />

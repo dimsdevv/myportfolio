@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Menu, X, Moon, Sun, ArrowRight } from 'lucide-react'
+import { useEffect, useState, useRef } from 'react'
+import { Menu, X, Moon, Sun } from 'lucide-react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const navItems = [
   { label: 'Tentang', href: '#about' },
@@ -14,6 +17,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const [isLight, setIsLight] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Check saved theme
@@ -23,24 +27,37 @@ export default function Navbar() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30)
+  useGSAP(() => {
+    // Detect if scrolled past 30px
+    ScrollTrigger.create({
+      start: 30,
+      onToggle: (self) => setScrolled(self.isActive)
+    })
 
-      // Active section detection
-      const sections = document.querySelectorAll('section[id]')
-      let currentId = ''
-      sections.forEach((sec) => {
-        if (window.scrollY >= (sec as HTMLElement).offsetTop - 120) {
-          currentId = sec.id
+    // Active section detection
+    const sections = document.querySelectorAll('section[id]')
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 30%',
+        end: 'bottom 30%',
+        onToggle: (self) => {
+          if (self.isActive) {
+            setActiveSection(section.id)
+          }
         }
       })
-      setActiveSection(currentId)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    })
   }, [])
+
+  // Mobile menu animation
+  useGSAP(() => {
+    if (mobileOpen) {
+      gsap.to(menuRef.current, { y: 0, autoAlpha: 1, duration: 0.3, ease: 'power2.out' })
+    } else {
+      gsap.to(menuRef.current, { y: -16, autoAlpha: 0, duration: 0.2, ease: 'power2.in' })
+    }
+  }, { dependencies: [mobileOpen] })
 
   const toggleTheme = () => {
     const next = !isLight
@@ -63,13 +80,13 @@ export default function Navbar() {
   return (
     <nav id="navbar" className="fixed top-0 left-0 right-0 z-50 transition-all duration-500" aria-label="Navigation utama">
       {/* ── Centered Floating Pill ── */}
-      <div className="flex justify-center px-4 pt-4">
+      <div className="flex justify-center px-4 pt-4 md:pt-6">
         <div
           className={`
-            flex items-center gap-1 px-6 py-3 rounded-full
-            transition-all duration-500 max-w-3xl w-full
+            flex items-center justify-between gap-1 px-4 md:px-6 py-2.5 md:py-3 rounded-full
+            transition-all duration-500 ease-[var(--ease-spring)] w-full max-w-3xl
             ${scrolled
-              ? 'navbar-glass shadow-[0_4px_32px_rgba(0,0,0,0.3)]'
+              ? 'bg-zinc-900/50 backdrop-blur-md border border-white/10 shadow-xl md:w-auto md:min-w-[600px]'
               : 'bg-transparent border border-transparent'
             }
           `}
@@ -80,7 +97,7 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, '#hero')}
             className="font-display font-bold text-lg tracking-tight group mr-auto flex items-center gap-2"
           >
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-text-primary border border-white/10">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border transition-colors duration-300 ${scrolled ? 'bg-white/10 border-white/10 text-white' : 'bg-transparent border-transparent text-text-primary'}`}>
               D
             </div>
             <span className="text-text-primary group-hover:text-text-secondary transition-colors duration-200">
@@ -98,7 +115,7 @@ export default function Navbar() {
                   className={`
                     nav-link px-3 py-2 rounded-lg transition-colors duration-200
                     ${activeSection === item.href.slice(1)
-                      ? 'text-text-primary bg-white/[0.06]'
+                      ? 'text-text-primary bg-white/[0.08]'
                       : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.04]'
                     }
                   `}
@@ -124,12 +141,10 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
-                         bg-white/[0.08] border border-white/[0.12] text-text-primary
-                         hover:bg-white/[0.14] hover:border-white/[0.2] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold
+                         bg-white text-zinc-900 hover:bg-zinc-200 hover:scale-105 transition-all duration-300 ease-[var(--ease-spring)]"
             >
               Hire Me
-              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
@@ -147,13 +162,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`
-          md:hidden mx-4 mt-2 rounded-2xl p-6 transition-all duration-300
-          ${mobileOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto bg-[rgba(15,15,17,0.9)] backdrop-blur-2xl border border-white/[0.08]'
-            : 'opacity-0 -translate-y-4 pointer-events-none'
-          }
-        `}
+        ref={menuRef}
+        className="md:hidden mx-4 mt-2 rounded-2xl p-6 bg-[rgba(15,15,17,0.9)] backdrop-blur-2xl border border-white/[0.08] invisible opacity-0"
       >
         <ul className="flex flex-col gap-2 text-sm font-medium" role="list">
           {navItems.map((item) => (
