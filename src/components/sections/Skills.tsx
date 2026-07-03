@@ -16,41 +16,50 @@ export default function Skills() {
 
   useGSAP(() => {
     // Header
-    gsap.from('.skills-header', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 80%',
+    gsap.fromTo('.skills-header', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        }
       }
-    })
+    )
 
     // Filters
-    gsap.from('.skills-filters', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.skills-filters',
-        start: 'top 85%',
+    gsap.fromTo('.skills-filters', 
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.skills-filters',
+          start: 'top 85%',
+        }
       }
-    })
+    )
 
     // Skill cards
-    gsap.from('.skill-card', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.skills-grid',
-        start: 'top 80%',
+    gsap.fromTo('.skill-card', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.skills-grid',
+          start: 'top 80%',
+        }
       }
-    })
+    )
   }, { scope: containerRef })
 
   // Animate filtering state changes

@@ -51,31 +51,52 @@ export default function About() {
     })
 
     // Education timeline items
-    gsap.from('.about-edu-item', {
-      x: isMobile ? 0 : 40,
-      y: isMobile ? 40 : 0,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.about-edu-timeline',
-        start: 'top 85%',
+    gsap.fromTo('.about-edu-item',
+      { x: isMobile ? 0 : 40, y: isMobile ? 40 : 0, opacity: 0 },
+      {
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-edu-timeline',
+          start: 'top 85%',
+        }
       }
-    })
+    )
 
     // Photos
-    gsap.from('.about-photo', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.about-photos-grid',
-        start: 'top 85%',
+    gsap.fromTo('.about-photo',
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-photos-grid',
+          start: 'top 85%',
+        }
       }
-    })
+    )
+
+    // Header
+    gsap.fromTo('.about-header', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        }
+      }
+    )
 
   }, { scope: containerRef })
 

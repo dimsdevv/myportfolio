@@ -11,43 +11,52 @@ export default function Contact() {
     const isMobile = window.innerWidth < 1024
 
     // Left container
-    gsap.from('.contact-left', {
-      x: isMobile ? 0 : -40,
-      y: isMobile ? 40 : 0,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.contact-left',
-        start: 'top 80%',
+    gsap.fromTo('.contact-left', 
+      { x: isMobile ? 0 : -40, y: isMobile ? 40 : 0, opacity: 0 },
+      {
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.contact-left',
+          start: 'top 80%',
+        }
       }
-    })
+    )
 
     // Contact items stagger
-    gsap.from('.contact-item', {
-      x: -20,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.contact-items-container',
-        start: 'top 85%',
+    gsap.fromTo('.contact-item', 
+      { x: -20, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.contact-items-container',
+          start: 'top 85%',
+        }
       }
-    })
+    )
 
     // Right container
-    gsap.from('.contact-right', {
-      x: isMobile ? 0 : 40,
-      y: isMobile ? 40 : 0,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.contact-right',
-        start: 'top 80%',
+    gsap.fromTo('.contact-right', 
+      { x: isMobile ? 0 : 40, y: isMobile ? 40 : 0, opacity: 0 },
+      {
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.contact-right',
+          start: 'top 80%',
+        }
       }
-    })
+    )
   }, { scope: containerRef })
 
   return (
