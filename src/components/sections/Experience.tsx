@@ -10,30 +10,37 @@ export default function Experience() {
 
   useGSAP(() => {
     // Header
-    gsap.from('.exp-header', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 80%',
+    gsap.fromTo('.exp-header', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        }
       }
-    })
+    )
 
     // Experience cards
-    gsap.from('.exp-card', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.exp-list',
-        start: 'top 80%',
+    gsap.fromTo('.exp-card', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.exp-list',
+          start: 'top 80%',
+        }
       }
-    })
+    )
   }, { scope: containerRef })
+
 
   return (
     <section id="experience" ref={containerRef} className="py-28 max-w-6xl mx-auto px-6">
@@ -49,7 +56,7 @@ export default function Experience() {
         {experiences.map((exp) => (
           <div
             key={exp.title}
-            className="exp-card glass-card rounded-3xl p-8 relative overflow-hidden group hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300"
+            className="exp-card glass-card rounded-3xl p-8 relative overflow-hidden group hover:bg-white/[0.03] hover:border-white/[0.12] transition-colors duration-300"
           >
             {/* Left gradient border */}
             <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${exp.gradientClass} rounded-l-3xl`} />

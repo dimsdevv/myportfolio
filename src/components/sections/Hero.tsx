@@ -44,46 +44,61 @@ export default function Hero() {
     const tl = gsap.timeline({ delay: 3.8 }) // wait for preloader to fade
 
     // Title staggered lines
-    tl.from('.hero-title-line', {
-      y: 30,
-      opacity: 0,
-      duration: 1.2,
-      stagger: 0.1,
-      ease: 'power3.out'
-    })
+    tl.fromTo('.hero-title-line',
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'power3.out'
+      }
+    )
     
     // Description
-    .from('.hero-desc', {
-      y: 20,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out'
-    }, '-=0.9')
+    .fromTo('.hero-desc',
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out'
+      }, '-=0.9'
+    )
     
     // Buttons
-    .from('.hero-btn', {
-      y: 20,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'power3.out'
-    }, '-=0.8')
+    .fromTo('.hero-btn',
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power3.out'
+      }, '-=0.8'
+    )
     
     // Stats
-    .from('.hero-stats', {
-      y: 20,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out'
-    }, '-=0.8')
+    .fromTo('.hero-stats',
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out'
+      }, '-=0.8'
+    )
     
     // Profile Card
-    .from(profileRef.current, {
-      x: 30,
-      opacity: 0,
-      duration: 1.2,
-      ease: 'power3.out'
-    }, '-=1')
+    .fromTo(profileRef.current,
+      { x: 30, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out'
+      }, '-=1'
+    )
 
     // Continuous float animation for profile
     gsap.to(profileRef.current, {
@@ -96,11 +111,14 @@ export default function Hero() {
     })
 
     // Continuous bounce for scroll indicator
-    gsap.from(indicatorRef.current, {
-      opacity: 0,
-      duration: 0.8,
-      delay: 4.6
-    })
+    gsap.fromTo(indicatorRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.8,
+        delay: 4.6
+      }
+    )
     gsap.to(indicatorRef.current, {
       y: 6,
       duration: 1.5,

@@ -26,41 +26,50 @@ export default function Projects() {
 
   useGSAP(() => {
     // Header
-    gsap.from('.proj-header', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 80%',
+    gsap.fromTo('.proj-header', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+        }
       }
-    })
+    )
 
     // Project cards
-    gsap.from('.proj-card', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.proj-grid',
-        start: 'top 80%',
+    gsap.fromTo('.proj-card', 
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.proj-grid',
+          start: 'top 80%',
+        }
       }
-    })
+    )
 
     // Footer button
-    gsap.from('.proj-footer', {
-      y: 20,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.proj-footer',
-        start: 'top 90%',
+    gsap.fromTo('.proj-footer', 
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.proj-footer',
+          start: 'top 90%',
+        }
       }
-    })
+    )
   }, { scope: containerRef })
 
   return (
