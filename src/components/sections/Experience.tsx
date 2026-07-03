@@ -49,7 +49,7 @@ export default function Experience() {
         {experiences.map((exp) => (
           <div
             key={exp.title}
-            className="exp-card glass-card rounded-3xl p-8 relative overflow-hidden group hover:border-white/[0.12] transition-colors duration-300"
+            className="exp-card glass-card rounded-3xl p-8 relative overflow-hidden group hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300"
           >
             {/* Left gradient border */}
             <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${exp.gradientClass} rounded-l-3xl`} />
@@ -83,7 +83,7 @@ export default function Experience() {
               {exp.techStack.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-4">
                   {exp.techStack.map((tech) => (
-                    <span key={tech} className="px-2.5 py-1 rounded-lg bg-surface border border-border text-xs text-text-secondary">
+                    <span key={tech} className="px-2.5 py-1 rounded-lg bg-white/[0.02] border border-white/[0.05] text-xs text-text-secondary group-hover:border-white/[0.1] transition-colors duration-300">
                       {tech}
                     </span>
                   ))}

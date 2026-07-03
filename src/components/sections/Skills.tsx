@@ -121,14 +121,14 @@ export default function Skills() {
                   {cat.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="skill-icon-card flex flex-col items-center gap-2 p-3 rounded-xl bg-surface/50 border border-border"
+                      className="skill-icon-card group/icon flex flex-col items-center gap-2 p-3 rounded-xl bg-white/[0.01] border border-white/[0.04] hover:bg-white/[0.05] hover:border-white/[0.15] transition-all duration-300"
                     >
                       <img
                         src={skill.icon}
                         alt={skill.name}
-                        className={`w-8 h-8 ${skill.invert ? 'invert' : ''}`}
+                        className={`w-8 h-8 group-hover/icon:scale-110 transition-transform duration-300 ease-out ${skill.invert ? 'invert opacity-80 group-hover/icon:opacity-100' : ''}`}
                       />
-                      <span className="text-[10px] text-text-secondary">{skill.name}</span>
+                      <span className="text-[10px] text-text-secondary group-hover/icon:text-white transition-colors duration-300">{skill.name}</span>
                     </div>
                   ))}
                 </div>

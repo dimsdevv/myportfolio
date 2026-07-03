@@ -153,7 +153,7 @@ export default function About() {
                 <img
                   src={`/${foto}`}
                   alt={`Dimas - Foto ${i + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-700 ease-out"
                 />
               </div>
             ))}
