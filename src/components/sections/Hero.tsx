@@ -45,11 +45,11 @@ export default function Hero() {
 
     // Title staggered lines
     tl.from('.hero-title-line', {
-      y: 40,
+      y: 30,
       opacity: 0,
       duration: 1.2,
-      stagger: 0.15,
-      ease: 'expo.out'
+      stagger: 0.1,
+      ease: 'power3.out'
     })
     
     // Description
@@ -57,8 +57,8 @@ export default function Hero() {
       y: 20,
       opacity: 0,
       duration: 1,
-      ease: 'expo.out'
-    }, '-=0.8')
+      ease: 'power3.out'
+    }, '-=0.9')
     
     // Buttons
     .from('.hero-btn', {
@@ -66,7 +66,7 @@ export default function Hero() {
       opacity: 0,
       duration: 1,
       stagger: 0.1,
-      ease: 'expo.out'
+      ease: 'power3.out'
     }, '-=0.8')
     
     // Stats
@@ -74,20 +74,20 @@ export default function Hero() {
       y: 20,
       opacity: 0,
       duration: 1,
-      ease: 'expo.out'
+      ease: 'power3.out'
     }, '-=0.8')
     
     // Profile Card
     .from(profileRef.current, {
-      x: 40,
+      x: 30,
       opacity: 0,
       duration: 1.2,
-      ease: 'expo.out'
+      ease: 'power3.out'
     }, '-=1')
 
     // Continuous float animation for profile
     gsap.to(profileRef.current, {
-      y: -10,
+      y: -8,
       duration: 4,
       ease: 'sine.inOut',
       yoyo: true,
@@ -102,8 +102,8 @@ export default function Hero() {
       delay: 4.6
     })
     gsap.to(indicatorRef.current, {
-      y: 8,
-      duration: 1,
+      y: 6,
+      duration: 1.5,
       ease: 'sine.inOut',
       yoyo: true,
       repeat: -1,
@@ -118,15 +118,15 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-[100dvh] w-full flex items-center justify-center overflow-hidden"
     >
-      {/* Gradient Mesh Background */}
+      {/* Subtle Premium Mesh Background */}
       <div className="absolute inset-0 w-full h-full bg-[#030303] overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/10 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute top-[20%] right-[20%] w-[30%] h-[30%] bg-purple-500/10 blur-[100px] rounded-full mix-blend-screen" />
+        <div className="absolute top-[-15%] left-[-10%] w-[55%] h-[55%] bg-blue-500/10 blur-[140px] rounded-full mix-blend-screen" />
+        <div className="absolute bottom-[-15%] right-[-10%] w-[55%] h-[55%] bg-emerald-500/10 blur-[140px] rounded-full mix-blend-screen" />
+        <div className="absolute top-[30%] right-[15%] w-[35%] h-[35%] bg-purple-500/10 blur-[120px] rounded-full mix-blend-screen" />
       </div>
 
       {/* Subtle overlay for text readability */}
-      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#030303]/80 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-36 md:pt-44 lg:pt-20 pb-24 grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-12 items-center">
         {/* Left — Text */}
@@ -145,7 +145,7 @@ export default function Hero() {
               href="#projects"
               onClick={(e) => handleNavClick(e, '#projects')}
               className="hero-btn btn-glow px-7 py-3.5 rounded-xl font-display font-semibold text-sm
-                         bg-white/[0.1] border border-white/[0.15] text-text-primary hover:bg-white/[0.15] transition-colors"
+                         bg-white/[0.05] border border-white/[0.08] text-text-primary hover:bg-white/[0.1] hover:border-white/[0.12] transition-colors"
             >
               Lihat Karya Saya ↓
             </a>
@@ -153,7 +153,7 @@ export default function Hero() {
               href="/CV DIMAS SHOLIHULHADI.pdf"
               download
               className="hero-btn btn-glow px-7 py-3.5 rounded-xl font-display font-semibold text-sm
-                         glass border border-white/[0.08] text-text-primary hover:border-white/[0.15]
+                         bg-transparent border border-white/[0.05] text-text-primary hover:bg-white/[0.03] hover:border-white/[0.1]
                          inline-flex items-center gap-2 transition-colors"
             >
               <Download className="w-4 h-4" />
@@ -162,18 +162,18 @@ export default function Hero() {
           </div>
 
           {/* Stats */}
-          <div className="hero-stats flex gap-8 mt-12 pt-8 border-t border-white/[0.1]">
+          <div className="hero-stats flex gap-10 mt-12 pt-8 border-t border-white/[0.06]">
             <div>
               <p className="font-display font-bold text-2xl text-text-primary"><Counter target={2} suffix="+" /></p>
-              <p className="text-text-muted text-xs mt-0.5">Tahun Ngoding</p>
+              <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Tahun Ngoding</p>
             </div>
             <div>
               <p className="font-display font-bold text-2xl text-text-primary"><Counter target={8} suffix="+" /></p>
-              <p className="text-text-muted text-xs mt-0.5">Proyek Selesai</p>
+              <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Proyek Selesai</p>
             </div>
             <div>
               <p className="font-display font-bold text-2xl text-text-primary"><Counter target={22} /></p>
-              <p className="text-text-muted text-xs mt-0.5">Teknologi</p>
+              <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Teknologi</p>
             </div>
           </div>
         </div>
@@ -187,10 +187,10 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div ref={indicatorRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-text-muted text-xs">
-        <span className="tracking-widest uppercase text-[10px]">Scroll</span>
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      <div ref={indicatorRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-text-muted/60 hover:text-text-primary transition-colors cursor-default">
+        <span className="tracking-[0.2em] uppercase text-[9px] font-medium">Scroll</span>
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
     </section>
