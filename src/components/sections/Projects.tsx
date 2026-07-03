@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { projects, type Project } from '@/data/portfolio-data'
 import { ExternalLink, Github } from 'lucide-react'
 import ProjectModal from '@/components/ui/ProjectModal'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalClosing, setIsModalClosing] = useState(false)
+  const containerRef = useRef<HTMLElement>(null)
 
   const handleOpenModal = (project: Project) => {
     setSelectedProject(project)
@@ -21,19 +24,57 @@ export default function Projects() {
     }, 400) // Match this duration with CSS transitions (400ms)
   }
 
+  useGSAP(() => {
+    // Header
+    gsap.from('.proj-header', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 80%',
+      }
+    })
+
+    // Project cards
+    gsap.from('.proj-card', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.proj-grid',
+        start: 'top 80%',
+      }
+    })
+
+    // Footer button
+    gsap.from('.proj-footer', {
+      y: 20,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.proj-footer',
+        start: 'top 90%',
+      }
+    })
+  }, { scope: containerRef })
+
   return (
-    <section id="projects" className="py-28 bg-surface/50 relative overflow-hidden">
+    <section id="projects" ref={containerRef} className="py-28 bg-surface/50 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="reveal">
+        <div className="proj-header">
           <SectionHeader label="Proyek" title="Karya" highlight="Pilihan" description="Proyek-proyek yang menunjukkan kemampuan saya dalam membangun produk digital yang fungsional dan berdesain menarik." />
         </div>
 
-        <div className="bento-grid">
-          {projects.map((project, i) => (
+        <div className="proj-grid bento-grid">
+          {projects.map((project) => (
             <div 
               key={project.title} 
-              className="bento-4 project-card glass-card rounded-3xl overflow-hidden reveal cursor-pointer" 
-              style={{ transitionDelay: `${i * 0.1}s` }}
+              className="proj-card bento-4 project-card glass-card rounded-3xl overflow-hidden cursor-pointer" 
               onClick={() => handleOpenModal(project)}
             >
               <div className="relative h-48 overflow-hidden group">
@@ -72,7 +113,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="text-center mt-12 reveal">
+        <div className="proj-footer text-center mt-12">
           <a href="https://github.com/dimsdevv" target="_blank" rel="noopener noreferrer" className="btn-glow inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-display font-semibold glass border border-border text-text-primary hover:border-white/[0.15]">
             <Github className="w-5 h-5" />
             Lihat Semua Proyek di GitHub

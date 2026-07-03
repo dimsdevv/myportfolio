@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function ScrollProgress() {
-  const [width, setWidth] = useState(0)
+  const progressRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const percent = (scrollTop / docHeight) * 100
-      setWidth(percent)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+  useGSAP(() => {
+    gsap.to(progressRef.current, {
+      width: '100%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.3, // Adds a slight smooth delay
+      }
+    })
   }, [])
 
-  return <div id="scroll-progress" style={{ width: `${width}%` }} />
+  return <div id="scroll-progress" ref={progressRef} style={{ width: '0%' }} />
 }

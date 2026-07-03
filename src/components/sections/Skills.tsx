@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { skillCategories } from '@/data/portfolio-data'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export default function Skills() {
   const [filter, setFilter] = useState('all')
+  const containerRef = useRef<HTMLElement>(null)
 
   const filters = [
     { label: 'Semua', value: 'all' },
@@ -11,10 +14,69 @@ export default function Skills() {
     { label: 'Data & Sistem', value: 'data' },
   ]
 
+  useGSAP(() => {
+    // Header
+    gsap.from('.skills-header', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 80%',
+      }
+    })
+
+    // Filters
+    gsap.from('.skills-filters', {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.skills-filters',
+        start: 'top 85%',
+      }
+    })
+
+    // Skill cards
+    gsap.from('.skill-card', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.skills-grid',
+        start: 'top 80%',
+      }
+    })
+  }, { scope: containerRef })
+
+  // Animate filtering state changes
+  useGSAP(() => {
+    gsap.to('.skill-card', {
+      opacity: (_, target) => {
+        const cat = target.dataset.category
+        return filter === 'all' || filter === cat ? 1 : 0.25
+      },
+      scale: (_, target) => {
+        const cat = target.dataset.category
+        return filter === 'all' || filter === cat ? 1 : 0.97
+      },
+      pointerEvents: (_, target) => {
+        const cat = target.dataset.category
+        return filter === 'all' || filter === cat ? 'auto' : 'none'
+      },
+      duration: 0.35,
+      ease: 'power2.out'
+    })
+  }, { dependencies: [filter], scope: containerRef })
+
   return (
-    <section id="skills" className="py-28 bg-surface/50 relative overflow-hidden">
+    <section id="skills" ref={containerRef} className="py-28 bg-surface/50 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="reveal">
+        <div className="skills-header">
           <SectionHeader
             label="Keahlian"
             title="Peralatan"
@@ -24,7 +86,7 @@ export default function Skills() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-3 justify-center mb-10 reveal">
+        <div className="skills-filters flex flex-wrap gap-3 justify-center mb-10">
           {filters.map((f) => (
             <button
               key={f.value}
@@ -38,20 +100,13 @@ export default function Skills() {
         </div>
 
         {/* Skills Grid */}
-        <div className="bento-grid">
-          {skillCategories.map((cat, catIdx) => {
-            const isVisible = filter === 'all' || cat.category === filter
+        <div className="skills-grid bento-grid">
+          {skillCategories.map((cat) => {
             return (
               <div
                 key={cat.title}
-                className="bento-6 glass-card rounded-3xl p-6 sm:p-8 reveal"
-                style={{
-                  transitionDelay: `${catIdx * 0.1}s`,
-                  opacity: isVisible ? 1 : 0.25,
-                  transform: isVisible ? 'scale(1)' : 'scale(0.97)',
-                  pointerEvents: isVisible ? 'auto' : 'none',
-                  transition: 'opacity .35s ease, transform .35s ease',
-                }}
+                data-category={cat.category}
+                className="skill-card bento-6 glass-card rounded-3xl p-6 sm:p-8"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className={`w-10 h-10 rounded-xl ${cat.colorClass} flex items-center justify-center text-xl`}>

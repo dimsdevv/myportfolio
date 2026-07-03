@@ -123,6 +123,20 @@ export const skillCategories: SkillCategory[] = [
 
 export const projects: Project[] = [
   {
+    title: 'SimBank',
+    description: 'Simulator mobile banking PWA lengkap dengan fitur transfer, top-up, QRIS payment, savings goals, riwayat transaksi, dan notifikasi real-time. Dibangun dengan arsitektur full-stack modern.',
+    emoji: '🏦',
+    colorClass: 'bg-zinc-600/20',
+    gradientClass: 'from-zinc-400 via-zinc-500 to-zinc-700',
+    status: 'Live',
+    techStack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
+    techColorClass: 'bg-zinc-500/10 border-zinc-500/20 text-zinc-300',
+    demoUrl: 'https://mobile-banking-simulator.vercel.app/',
+    githubUrl: 'https://github.com/dimsdevv/mobile-banking-simulator',
+    image: '/simbank_preview.png',
+    category: 'web',
+  },
+  {
     title: 'TaskFlow Genius',
     description: 'Aplikasi manajemen tugas (Kanban) berbasis Full-stack React dengan fitur Drag-and-Drop dan integrasi AI NLP untuk penentuan deadline otomatis.',
     emoji: '🚀',
