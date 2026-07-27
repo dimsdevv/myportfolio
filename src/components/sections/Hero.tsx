@@ -151,11 +151,11 @@ export default function Hero() {
         <div>
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6">
             <div className="hero-title-line"><span className="gradient-text">Web Developer</span></div>
-            <div className="hero-title-line"><span className="text-text-muted">& Data Science</span></div>
+           <div className="hero-title-line"><span className="text-text-muted">& Software Engineer</span></div>
           </h1>
 
           <p className="hero-desc text-text-secondary text-base sm:text-lg leading-relaxed max-w-md mb-10">
-            Halo, saya <span className="text-text-primary font-medium">Dimas Sholihulhadi</span>, mahasiswa Sistem Informasi di Itenas yang memiliki fokus di bidang Web Development dan antusiasme tinggi terhadap Data Science. Saya senang merancang dan membangun solusi digital yang tidak hanya berfungsi dengan baik, tetapi juga memberikan dampak nyata bagi pengguna.
+            Halo, saya <span className="text-text-primary font-medium">Dimas Sholihulhadi</span>. Sebagai mahasiswa Sistem Informasi di Itenas Bandung, saya membangun aplikasi web yang stabil, mudah digunakan, dan siap dikembangkan lebih jauh. Saya menikmati proses merancang antarmuka yang bersih sambil menjaga arsitektur kode tetap rapi dan logis.
           </p>
 
           <div className="flex flex-wrap gap-4">

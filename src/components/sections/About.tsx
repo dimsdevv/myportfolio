@@ -137,15 +137,15 @@ export default function About() {
             {/* Statement Text - Editorial Typography */}
             <div className="mt-10 space-y-8">
               <p className="reveal-text font-display text-2xl md:text-3xl lg:text-[2.25rem] leading-[1.3] text-text-primary tracking-tight">
-                Saya memulai perjalanan dari bangku <span className="text-accent-primary">SMK Rekayasa Perangkat Lunak</span>, tempat saya pertama kali jatuh cinta pada seni membangun sesuatu dari nol.
+                Saya memulai perjalanan dari bangku <span className="text-accent-primary">SMK Rekayasa Perangkat Lunak</span>, tempat pertama kali saya jatuh cinta pada proses membangun aplikasi dari awal.
               </p>
               
               <p className="reveal-text text-lg text-text-secondary leading-relaxed max-w-2xl">
-                Saat ini, saya mendalami <strong className="text-text-primary font-medium">Sistem Informasi di Institut Teknologi Nasional (Itenas) Bandung</strong>. Pendidikan ini memperluas wawasan saya dari sekadar penulisan kode, menjadi arsitektur sistem, pengelolaan basis data, dan penyelesaian masalah bisnis.
+                Saat ini saya fokus sebagai Web Developer dan Software Engineer sambil menempuh studi Sistem Informasi di Itenas Bandung. Pendidikan ini membantu saya memahami lebih jauh tentang arsitektur sistem, basis data, dan cara merancang solusi yang dapat bertahan dalam jangka panjang.
               </p>
 
               <p className="reveal-text text-lg text-text-secondary leading-relaxed max-w-2xl">
-                Di samping web development, saya bereksperimen dengan <strong className="text-text-primary font-medium">Data Science menggunakan Python</strong>. Dari manipulasi data dengan Pandas hingga machine learning prediktif. Saya percaya bahwa pengalaman digital terbaik lahir dari perpaduan antara rekayasa perangkat lunak dan data.
+                Saya bekerja dengan pendekatan yang pragmatis: kode yang bersih, alur pengguna yang jelas, dan struktur yang mudah dipelihara. Selain itu, saya juga memanfaatkan pemahaman dasar data untuk mendukung keputusan teknis yang lebih matang.
               </p>
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function About() {
 
           {/* Highlights Bento */}
           <div className="highlights-container grid grid-cols-2 gap-4">
-            {aboutHighlights.map((item, i) => (
+            {aboutHighlights.map((item) => (
               <div 
                 key={item.title} 
                 className="highlight-card group relative bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-500 rounded-3xl p-6 overflow-hidden"
