@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { aboutHighlights, education } from '@/data/portfolio-data'
+import { BarChart3, Code2, Layers, ShieldCheck } from 'lucide-react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -10,34 +11,42 @@ gsap.registerPlugin(ScrollTrigger)
 export default function About() {
   const containerRef = useRef<HTMLElement>(null)
 
+  const iconMap = {
+    Code2,
+    BarChart3,
+    Layers,
+    ShieldCheck,
+  }
+
   useGSAP(() => {
     const isMobile = window.innerWidth < 1024
 
-    // Parallax & Reveal for Images
-    gsap.utils.toArray('.about-image-wrapper').forEach((img: any) => {
-      gsap.fromTo(img, 
-        { clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)' },
+    // Image reveal for the About section
+    gsap.utils.toArray('.about-image-card').forEach((card: any) => {
+      gsap.fromTo(card,
+        { clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)', opacity: 0 },
         {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-          duration: 1.5,
-          ease: 'expo.inOut',
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: img,
+            trigger: card,
             start: 'top 85%',
           }
         }
       )
-      
-      const imageInner = img.querySelector('img')
+
+      const imageInner = card.querySelector('img')
       if (imageInner) {
         gsap.fromTo(imageInner,
-          { scale: 1.3 },
+          { scale: 1.05 },
           {
             scale: 1,
             duration: 1.5,
-            ease: 'expo.inOut',
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: img,
+              trigger: card,
               start: 'top 85%',
             }
           }
@@ -187,51 +196,40 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right Column (5 cols): Photos & Highlights */}
-        <div className="lg:col-span-5 flex flex-col gap-16 lg:sticky lg:top-32">
-          
-          {/* Photo Gallery - Collage */}
-          <div className="relative h-[350px] md:h-[450px] w-full max-w-[400px] mx-auto lg:mx-0">
-            {/* Main large photo */}
-            <div className="about-image-wrapper absolute top-0 left-0 w-3/4 h-[250px] md:h-[320px] rounded-3xl overflow-hidden border border-white/10 group z-10 shadow-2xl">
-              <img src="/foto2.jpeg" alt="Dimas" className="w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700 ease-out" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent" />
-            </div>
-            
-            {/* Secondary small photo right */}
-            <div className="about-image-wrapper absolute top-12 right-0 w-2/5 h-[180px] md:h-[220px] rounded-2xl overflow-hidden border border-white/10 group z-20 shadow-xl">
-              <img src="/foto3.jpeg" alt="Dimas" className="w-full h-full object-cover opacity-60 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700 ease-out" />
-            </div>
-
-            {/* Tertiary small photo bottom */}
-            <div className="about-image-wrapper absolute bottom-0 right-8 w-1/2 h-[160px] md:h-[200px] rounded-2xl overflow-hidden border border-white/10 group z-30 shadow-xl">
-              <img src="/foto4.jpeg" alt="Dimas" className="w-full h-full object-cover opacity-70 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 transition-all duration-700 ease-out" />
+        {/* Right Column (5 cols): Photo and Highlights */}
+        <div className="lg:col-span-5 flex flex-col gap-8 lg:sticky lg:top-32">
+          <div className="about-image-card overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.03] shadow-[0_32px_80px_-52px_rgba(0,0,0,0.7)] transition-transform duration-500 hover:-translate-y-1">
+            <img
+              src="/foto2.jpeg"
+              alt="Dimas Sholihulhadi bekerja di sebuah proyek web"
+              className="w-full h-[420px] object-cover sm:h-[520px]"
+            />
+            <div className="p-6 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent">
+              <p className="text-xs uppercase tracking-[0.28em] text-text-muted mb-3">Software Engineering</p>
+              <h3 className="text-2xl font-semibold text-white">Fokus pada kualitas kode dan solusi yang dapat berkembang.</h3>
+              <p className="mt-4 text-text-secondary text-sm leading-relaxed max-w-md">
+                Saya mendesain aplikasi web yang dapat dipelihara, memiliki alur pengguna yang jelas, dan mendukung produk dengan fondasi teknis yang kuat.
+              </p>
             </div>
           </div>
 
-          {/* Highlights Bento */}
-          <div className="highlights-container grid grid-cols-2 gap-4">
-            {aboutHighlights.map((item) => (
-              <div 
-                key={item.title} 
-                className="highlight-card group relative bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-500 rounded-3xl p-6 overflow-hidden"
-              >
-                {/* Hover Glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)] transition-opacity duration-700 pointer-events-none" />
-                
-                <div className="flex flex-col h-full justify-between gap-6 relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 group-hover:bg-white/[0.06] group-hover:rotate-3 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
-                    {item.emoji}
+          <div className="highlights-container grid gap-4 sm:grid-cols-2">
+            {aboutHighlights.map((item) => {
+              const Icon = iconMap[item.icon as keyof typeof iconMap] ?? Code2
+              return (
+                <div
+                  key={item.title}
+                  className="group rounded-3xl border border-white/[0.06] bg-white/[0.03] p-6 transition-colors duration-300 hover:border-white/[0.14] hover:bg-white/[0.05]"
+                >
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.08] text-text-primary mb-4">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h5 className="font-display font-medium text-text-primary text-sm mb-2">{item.title}</h5>
-                    <p className="text-text-muted text-xs leading-relaxed">{item.desc}</p>
-                  </div>
+                  <h5 className="font-display font-semibold text-text-primary text-sm mb-2">{item.title}</h5>
+                  <p className="text-text-muted text-sm leading-relaxed">{item.desc}</p>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
-
         </div>
 
       </div>

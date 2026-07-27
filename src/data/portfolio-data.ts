@@ -256,8 +256,8 @@ export const heroTechBadges = [
 ]
 
 export const aboutHighlights = [
-  { emoji: '🎯', title: 'Berorientasi Detail', desc: 'Kode bersih adalah kewajiban' },
-  { emoji: '📊', title: 'Berbasis Data', desc: 'Keputusan didukung analisis' },
-  { emoji: '🚀', title: 'Pembelajar Cepat', desc: 'Cepat adaptasi teknologi baru' },
-  { emoji: '🤝', title: 'Kolaboratif', desc: 'Berkembang di dalam tim' },
+  { icon: 'Code2', title: 'Berorientasi Detail', desc: 'Kode bersih dan struktur yang mudah dipelihara' },
+  { icon: 'BarChart3', title: 'Berbasis Data', desc: 'Keputusan teknis didukung oleh data dan analisis' },
+  { icon: 'Layers', title: 'Arsitektur Terukur', desc: 'Memilih solusi yang scalable dan mudah dikembangkan' },
+  { icon: 'ShieldCheck', title: 'Kualitas & Keandalan', desc: 'Fokus pada hasil yang stabil dan dapat dipercaya' },
 ]
