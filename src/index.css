@@ -67,9 +67,7 @@ html {
   html {
     cursor: auto;
   }
-  #cursor-dot,
-  #cursor-ring,
-  .cursor-glow {
+  [data-cursor] {
     display: none !important;
   }
 }

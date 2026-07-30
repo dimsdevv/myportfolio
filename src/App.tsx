@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -34,24 +34,15 @@ export default function App() {
     }, 100)
   }, [])
 
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => { document.body.style.overflow = '' }
-  }, [selectedProject])
-
   return (
     <div className="relative">
+      <CustomCursor />
+      <ScrollProgress />
       {selectedProject ? (
         <ProjectDetail project={selectedProject} onBack={handleBackToPortfolio} />
       ) : (
         <>
           <Preloader />
-          <ScrollProgress />
-          <CustomCursor />
           <Navbar />
           <main>
             <Hero />

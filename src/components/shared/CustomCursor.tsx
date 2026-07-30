@@ -86,24 +86,27 @@ export default function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-[6px] h-[6px] bg-[#fafafa] rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        data-cursor
+        className="fixed top-0 left-0 w-[6px] h-[6px] bg-white rounded-full pointer-events-none z-[9999] shadow-[0_0_6px_rgba(255,255,255,0.4)]"
         style={{ transform: 'translate(-50%, -50%)' }}
       />
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-[9998] mix-blend-difference"
+        data-cursor
+        className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-[9998]"
         style={{
           transform: 'translate(-50%, -50%)',
-          border: '1.5px solid rgba(250,250,250,0.3)',
+          border: '1.5px solid rgba(255,255,255,0.25)',
           background: 'transparent',
         }}
       />
       <div
         ref={glowRef}
+        data-cursor
         className="fixed top-0 left-0 w-[300px] h-[300px] rounded-full pointer-events-none z-0"
         style={{
           transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(161,161,170,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)',
         }}
       />
     </>
