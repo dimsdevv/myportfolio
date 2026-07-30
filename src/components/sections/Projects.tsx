@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { projects, type Project } from '@/data/portfolio-data'
-import { ExternalLink, Github } from 'lucide-react'
+import { ExternalLink, Github, Landmark, Rocket, Coffee, ShoppingCart, type LucideIcon } from 'lucide-react'
 import ProjectModal from '@/components/ui/ProjectModal'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+
+const iconMap: Record<string, LucideIcon> = { Landmark, Rocket, Coffee, ShoppingCart }
 
 const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="400"%3E%3Crect fill="%23111111" width="800" height="400"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="14" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage Not Found%3C/text%3E%3C/svg%3E'
 
@@ -93,12 +95,14 @@ export default function Projects() {
               onClick={() => handleOpenModal(project)}
             >
               <div className="relative h-48 overflow-hidden group">
-                <img src={project.image} alt={`${project.title} Preview`} onError={handleImgError} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                <img src={project.image} alt={`Tampilan antarmuka ${project.title} — ${project.description.split('.')[0]}`} onError={handleImgError} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
               </div>
               <div className="p-6 pt-4 flex flex-col h-[calc(100%-12rem)] min-h-[300px]">
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-2xl ${project.colorClass} flex items-center justify-center text-2xl flex-shrink-0`}>{project.emoji}</div>
+                  <div className={`w-12 h-12 rounded-2xl ${project.colorClass} flex items-center justify-center flex-shrink-0`}>
+                    {(() => { const Icon = iconMap[project.icon] ?? Landmark; return <Icon className="w-5 h-5 text-text-secondary" /> })()}
+                  </div>
                   <div className="flex gap-2">
                     {project.demoUrl && (
                       <a href={project.demoUrl} aria-label="Demo" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="w-9 h-9 rounded-xl glass border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-white/[0.15] transition-colors">

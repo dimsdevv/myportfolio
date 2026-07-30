@@ -1,9 +1,11 @@
 import { useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { experiences } from '@/data/portfolio-data'
-import { Calendar } from 'lucide-react'
+import { Calendar, Building, GraduationCap, type LucideIcon } from 'lucide-react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+
+const iconMap: Record<string, LucideIcon> = { Building, GraduationCap }
 
 export default function Experience() {
   const containerRef = useRef<HTMLElement>(null)
@@ -63,8 +65,8 @@ export default function Experience() {
 
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div className="flex gap-4 items-start">
-                <div className={`w-12 h-12 rounded-2xl ${exp.colorClass} flex-shrink-0 flex items-center justify-center text-2xl`}>
-                  {exp.emoji}
+                <div className={`w-12 h-12 rounded-2xl ${exp.colorClass} flex-shrink-0 flex items-center justify-center`}>
+                  {(() => { const Icon = iconMap[exp.icon] ?? Building; return <Icon className="w-5 h-5 text-text-secondary" /> })()}
                 </div>
                 <div>
                   <h3 className="font-display font-bold text-text-primary text-lg">{exp.title}</h3>

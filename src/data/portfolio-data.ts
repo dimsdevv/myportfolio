@@ -8,7 +8,7 @@ export interface Skill {
 export interface SkillCategory {
   title: string
   subtitle: string
-  emoji: string
+  icon: string
   colorClass: string
   category: 'webdev' | 'data'
   skills: Skill[]
@@ -17,7 +17,7 @@ export interface SkillCategory {
 export interface Project {
   title: string
   description: string
-  emoji: string
+  icon: string
   colorClass: string
   gradientClass: string
   status: 'Live' | 'WIP' | 'Archived'
@@ -45,7 +45,7 @@ export interface Experience {
   company: string
   description: string
   year: string
-  emoji: string
+  icon: string
   colorClass: string
   badgeColorClass: string
   gradientClass: string
@@ -59,7 +59,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: 'Web Frontend',
     subtitle: 'UI/UX & Client-side',
-    emoji: '🌐',
+    icon: 'Globe',
     colorClass: 'bg-zinc-700/20',
     category: 'webdev',
     skills: [
@@ -74,7 +74,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: 'Backend & Database',
     subtitle: 'Server, API & Data Storage',
-    emoji: '⚙️',
+    icon: 'Server',
     colorClass: 'bg-zinc-600/20',
     category: 'webdev',
     skills: [
@@ -89,7 +89,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: 'Data Science & System',
     subtitle: 'Analytics, ML & Core Programming',
-    emoji: '🐍',
+    icon: 'Brain',
     colorClass: 'bg-zinc-500/20',
     category: 'data',
     skills: [
@@ -105,7 +105,7 @@ export const skillCategories: SkillCategory[] = [
   {
     title: 'Tools, Cloud & AI',
     subtitle: 'Deployment, Version Control & Utilities',
-    emoji: '🛠️',
+    icon: 'Wrench',
     colorClass: 'bg-zinc-600/20',
     category: 'webdev',
     skills: [
@@ -125,7 +125,7 @@ export const projects: Project[] = [
   {
     title: 'SimBank',
     description: 'Simulator mobile banking PWA lengkap dengan fitur transfer, top-up, QRIS payment, savings goals, riwayat transaksi, dan notifikasi real-time. Dibangun dengan arsitektur full-stack modern.',
-    emoji: '🏦',
+    icon: 'Landmark',
     colorClass: 'bg-zinc-600/20',
     gradientClass: 'from-zinc-400 via-zinc-500 to-zinc-700',
     status: 'Live',
@@ -139,7 +139,7 @@ export const projects: Project[] = [
   {
     title: 'TaskFlow Genius',
     description: 'Aplikasi manajemen tugas (Kanban) berbasis Full-stack React dengan fitur Drag-and-Drop dan integrasi AI NLP untuk penentuan deadline otomatis.',
-    emoji: '🚀',
+    icon: 'Rocket',
     colorClass: 'bg-zinc-600/20',
     gradientClass: 'from-zinc-500 via-zinc-600 to-zinc-700',
     status: 'Live',
@@ -153,7 +153,7 @@ export const projects: Project[] = [
   {
     title: 'BeanPay POS',
     description: 'Sistem POS kasir untuk kedai kopi. Dilengkapi manajemen meja realtime, pembayaran QRIS, Kitchen Display System (KDS), dan laporan.',
-    emoji: '☕',
+    icon: 'Coffee',
     colorClass: 'bg-zinc-600/20',
     gradientClass: 'from-zinc-600 via-zinc-500 to-zinc-400',
     status: 'Live',
@@ -167,7 +167,7 @@ export const projects: Project[] = [
   {
     title: 'Mortyxvoid Store',
     description: 'Platform e-commerce katalog produk dengan sistem keranjang belanja dinamis dan checkout responsif bergaya modern.',
-    emoji: '🛒',
+    icon: 'ShoppingCart',
     colorClass: 'bg-zinc-600/20',
     gradientClass: 'from-zinc-400 via-zinc-500 to-zinc-600',
     status: 'Live',
@@ -216,7 +216,7 @@ export const experiences: Experience[] = [
     company: 'Pesantren Digitalisasi · Magang',
     description: 'Merancang dan mengembangkan sistem informasi manajemen internal berbasis web dari nol',
     year: '2022',
-    emoji: '🕌',
+    icon: 'Building',
     colorClass: 'bg-zinc-500/15',
     badgeColorClass: 'bg-zinc-500/10 border-zinc-500/20 text-zinc-300',
     gradientClass: 'from-zinc-400 to-zinc-600',
@@ -233,7 +233,7 @@ export const experiences: Experience[] = [
     company: 'Institut Teknologi Nasional (Itenas)',
     description: 'Mengerjakan proyek akademik dan personal yang mengasah kemampuan full-stack & data',
     year: '2022 – Sekarang',
-    emoji: '🎓',
+    icon: 'GraduationCap',
     colorClass: 'bg-zinc-600/15',
     badgeColorClass: 'bg-zinc-600/10 border-zinc-600/20 text-zinc-400',
     gradientClass: 'from-zinc-500 to-zinc-700',

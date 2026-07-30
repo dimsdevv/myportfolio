@@ -21,7 +21,7 @@
   --color-accent-muted: #a1a1aa;
 
   /* ── Fonts ── */
-  --font-display: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
 
   /* ── Animations ── */
@@ -79,6 +79,7 @@ body {
   color: #fafafa;
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Glassmorphism ── */

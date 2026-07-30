@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { X, ExternalLink, Github } from 'lucide-react';
+import { X, ExternalLink, Github, Landmark, Rocket, Coffee, ShoppingCart, type LucideIcon } from 'lucide-react';
 import type { Project } from '@/data/portfolio-data';
+
+const iconMap: Record<string, LucideIcon> = { Landmark, Rocket, Coffee, ShoppingCart };
 
 const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="400"%3E%3Crect fill="%23111111" width="800" height="400"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="14" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage Not Found%3C/text%3E%3C/svg%3E'
 
@@ -59,7 +61,7 @@ export default function ProjectModal({ project, onClose, isClosing }: ProjectMod
         <div className="w-full md:w-[45%] relative h-64 md:h-auto overflow-hidden rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none flex-shrink-0">
            <img 
              src={project.image} 
-             alt={project.title} 
+             alt={`Tampilan detail ${project.title} — ${project.description.split('.')[0]}`}
              onError={(e) => { e.currentTarget.src = FALLBACK_IMG }}
              className="absolute inset-0 w-full h-full object-cover object-top"
            />
@@ -70,8 +72,8 @@ export default function ProjectModal({ project, onClose, isClosing }: ProjectMod
         <div className="w-full md:w-[55%] p-6 sm:p-8 flex flex-col">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
             <div className="flex items-center gap-3">
-              <div className={`w-12 h-12 rounded-2xl ${project.colorClass} flex items-center justify-center text-2xl flex-shrink-0 shadow-lg`}>
-                {project.emoji}
+              <div className={`w-12 h-12 rounded-2xl ${project.colorClass} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                {(() => { const Icon = iconMap[project.icon] ?? Landmark; return <Icon className="w-5 h-5 text-text-secondary" /> })()}
               </div>
               <div>
                 <h2 id="modal-title" className="text-2xl sm:text-3xl font-bold text-white font-display leading-tight">

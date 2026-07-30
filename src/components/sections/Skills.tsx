@@ -1,8 +1,11 @@
 import { useState, useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { skillCategories } from '@/data/portfolio-data'
+import { Globe, Server, Brain, Wrench, type LucideIcon } from 'lucide-react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+
+const iconMap: Record<string, LucideIcon> = { Globe, Server, Brain, Wrench }
 
 export default function Skills() {
   const [filter, setFilter] = useState('all')
@@ -118,8 +121,8 @@ export default function Skills() {
                 className="skill-card bento-6 glass-card rounded-3xl p-6 sm:p-8"
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <div className={`w-10 h-10 rounded-xl ${cat.colorClass} flex items-center justify-center text-xl`}>
-                    {cat.emoji}
+                  <div className={`w-10 h-10 rounded-xl ${cat.colorClass} flex items-center justify-center`}>
+                    {(() => { const Icon = iconMap[cat.icon] ?? Globe; return <Icon className="w-5 h-5 text-text-secondary" /> })()}
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-text-primary">{cat.title}</h3>
