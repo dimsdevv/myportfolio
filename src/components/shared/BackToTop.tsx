@@ -29,12 +29,10 @@ export default function BackToTop() {
 
   return (
     <button
-      id="back-to-top"
+      className="back-to-top"
       ref={btnRef}
       onClick={scrollToTop}
       aria-label="Kembali ke atas"
-      // Note: CSS transitions for hover state are kept in index.css
-      // but opacity/transform are handled by GSAP now.
       style={{ visibility: 'hidden' }} 
     >
       <ArrowUp className="w-5 h-5" />

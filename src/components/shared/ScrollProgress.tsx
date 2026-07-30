@@ -21,5 +21,5 @@ export default function ScrollProgress() {
     })
   }, [])
 
-  return <div id="scroll-progress" ref={progressRef} style={{ width: '0%' }} />
+  return <div className="scroll-progress" ref={progressRef} style={{ width: '0%' }} />
 }

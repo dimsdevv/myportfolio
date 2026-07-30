@@ -41,7 +41,7 @@ export default function Hero() {
   }
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 3.8 }) // wait for preloader to fade
+    const tl = gsap.timeline({ delay: 2.0 })
 
     // Title staggered lines
     tl.fromTo('.hero-title-line',

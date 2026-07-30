@@ -6,6 +6,8 @@ import ProjectModal from '@/components/ui/ProjectModal'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
+const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="400"%3E%3Crect fill="%23111111" width="800" height="400"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="14" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage Not Found%3C/text%3E%3C/svg%3E'
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalClosing, setIsModalClosing] = useState(false)
@@ -21,7 +23,11 @@ export default function Projects() {
     setTimeout(() => {
       setSelectedProject(null)
       setIsModalClosing(false)
-    }, 400) // Match this duration with CSS transitions (400ms)
+    }, 400)
+  }
+
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = FALLBACK_IMG
   }
 
   useGSAP(() => {
@@ -87,7 +93,7 @@ export default function Projects() {
               onClick={() => handleOpenModal(project)}
             >
               <div className="relative h-48 overflow-hidden group">
-                <img src={project.image} alt={`${project.title} Preview`} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                <img src={project.image} alt={`${project.title} Preview`} onError={handleImgError} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
               </div>
               <div className="p-6 pt-4 flex flex-col h-[calc(100%-12rem)] min-h-[300px]">

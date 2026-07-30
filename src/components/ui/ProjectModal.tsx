@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { X, ExternalLink, Github } from 'lucide-react';
 import type { Project } from '@/data/portfolio-data';
 
+const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="400"%3E%3Crect fill="%23111111" width="800" height="400"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="14" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage Not Found%3C/text%3E%3C/svg%3E'
+
 interface ProjectModalProps {
   project: Project;
   onClose: () => void;
@@ -56,10 +58,11 @@ export default function ProjectModal({ project, onClose, isClosing }: ProjectMod
         {/* Image Section */}
         <div className="w-full md:w-[45%] relative h-64 md:h-auto overflow-hidden rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none flex-shrink-0">
            <img 
-            src={project.image} 
-            alt={project.title} 
-            className="absolute inset-0 w-full h-full object-cover object-top"
-          />
+             src={project.image} 
+             alt={project.title} 
+             onError={(e) => { e.currentTarget.src = FALLBACK_IMG }}
+             className="absolute inset-0 w-full h-full object-cover object-top"
+           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#18181b] via-[#18181b]/20 to-transparent md:bg-gradient-to-r md:from-transparent md:via-[#18181b]/20 md:to-[#18181b]" />
         </div>
 

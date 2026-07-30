@@ -254,7 +254,7 @@ textarea:focus {
 }
 
 /* ── Scroll Progress Bar ── */
-#scroll-progress {
+.scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
@@ -266,7 +266,7 @@ textarea:focus {
 }
 
 /* ── Back to Top ── */
-#back-to-top {
+.back-to-top {
   position: fixed;
   bottom: 32px;
   right: 32px;
@@ -287,7 +287,7 @@ textarea:focus {
   transition: opacity 0.3s, transform 0.3s, background 0.2s;
   cursor: pointer;
 }
-#back-to-top:hover {
+.back-to-top:hover {
   background: rgba(63, 63, 70, 0.6);
   transform: translateY(-3px);
   color: #fafafa;
@@ -503,7 +503,7 @@ html.light .glass-card {
 html.light body::before {
   opacity: 0.06;
 }
-html.light #scroll-progress {
+html.light .scroll-progress {
   background: linear-gradient(90deg, #27272a, #52525b, #71717a);
 }
 html.light ::-webkit-scrollbar-track {
@@ -533,12 +533,12 @@ html.light .filter-btn.active {
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.05);
   border-color: rgba(0, 0, 0, 0.12);
 }
-html.light #back-to-top {
+html.light .back-to-top {
   background: rgba(228, 228, 231, 0.6);
   border-color: rgba(0, 0, 0, 0.08);
   color: #52525b;
 }
-html.light #back-to-top:hover {
+html.light .back-to-top:hover {
   background: rgba(212, 212, 216, 0.8);
   color: #18181b;
 }
@@ -551,70 +551,4 @@ html.light .project-card:hover {
     0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Custom Cursor ── */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  background: #fafafa;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.2s;
-  mix-blend-mode: difference;
-}
 
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid rgba(250, 250, 250, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.3s,
-    opacity 0.3s,
-    background 0.3s;
-  mix-blend-mode: difference;
-}
-
-.cursor-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(161, 161, 170, 0.04) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-hover .cursor-dot {
-  width: 60px;
-  height: 60px;
-  background: rgba(250, 250, 250, 0.08);
-}
-
-.cursor-hover .cursor-ring {
-  width: 60px;
-  height: 60px;
-  border-color: rgba(250, 250, 250, 0.5);
-  background: rgba(250, 250, 250, 0.03);
-}

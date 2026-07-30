@@ -7,12 +7,10 @@ export default function Preloader() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    // The liquid fill animation in CSS takes 4s. 
-    // We start fading out at 3.5s for a smooth transition.
     gsap.to(containerRef.current, {
       opacity: 0,
-      duration: 0.8,
-      delay: 3.5,
+      duration: 0.6,
+      delay: 1.5,
       ease: 'power2.inOut',
       onComplete: () => {
         setHidden(true)
