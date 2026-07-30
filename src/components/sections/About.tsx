@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { aboutHighlights, education } from '@/data/portfolio-data'
-import { BarChart3, Code2, Layers, ShieldCheck } from 'lucide-react'
+import { BarChart3, Code2, Layers, ShieldCheck, ArrowRight } from 'lucide-react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -232,6 +232,18 @@ export default function About() {
           </div>
         </div>
 
+      </div>
+
+      {/* CTA */}
+      <div className="mt-16 text-center">
+        <a
+          href="#skills"
+          onClick={(e) => { e.preventDefault(); document.querySelector('#skills')?.scrollIntoView({ behavior: 'smooth' }) }}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/[0.08] bg-white/[0.03] text-text-secondary text-sm font-medium hover:bg-white/[0.06] hover:text-text-primary hover:border-white/[0.15] transition-all duration-300"
+        >
+          Lihat Keahlian Saya
+          <ArrowRight className="w-4 h-4" />
+        </a>
       </div>
     </section>
   )

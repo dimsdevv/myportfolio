@@ -168,7 +168,7 @@ export default function Hero() {
               Lihat Karya Saya ↓
             </a>
             <a
-              href="/CV DIMAS SHOLIHULHADI.pdf"
+              href="/cv-dimas-sholihulhadi.pdf"
               download
               className="hero-btn btn-glow px-7 py-3.5 rounded-xl font-display font-semibold text-sm
                          bg-transparent border border-white/[0.05] text-text-primary hover:bg-white/[0.03] hover:border-white/[0.1]
@@ -182,15 +182,15 @@ export default function Hero() {
           {/* Stats */}
           <div className="hero-stats flex gap-10 mt-12 pt-8 border-t border-white/[0.06]">
             <div>
-              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={2} suffix="+" /></p>
+              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={4} suffix="+" /></p>
               <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Tahun Ngoding</p>
             </div>
             <div>
-              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={8} suffix="+" /></p>
+              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={12} suffix="+" /></p>
               <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Proyek Selesai</p>
             </div>
             <div>
-              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={22} /></p>
+              <p className="font-display font-bold text-2xl text-text-primary"><Counter target={20} /></p>
               <p className="text-text-muted text-xs mt-1 uppercase tracking-wider font-medium">Teknologi</p>
             </div>
           </div>

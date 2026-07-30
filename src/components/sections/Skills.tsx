@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { skillCategories } from '@/data/portfolio-data'
-import { Globe, Server, Brain, Wrench, type LucideIcon } from 'lucide-react'
+import { Globe, Server, Brain, Wrench, ArrowRight, type LucideIcon } from 'lucide-react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -147,6 +147,18 @@ export default function Skills() {
               </div>
             )
           })}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-12 text-center">
+          <a
+            href="#projects"
+            onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/[0.08] bg-white/[0.03] text-text-secondary text-sm font-medium hover:bg-white/[0.06] hover:text-text-primary hover:border-white/[0.15] transition-all duration-300"
+          >
+            Lihat Proyek Saya
+            <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
