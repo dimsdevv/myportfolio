@@ -27,6 +27,9 @@ export interface Project {
   githubUrl?: string
   image: string
   category: 'web' | 'data'
+  highlights: string[]
+  challenge: string
+  solution: string
 }
 
 export interface Education {
@@ -135,6 +138,15 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/dimsdevv/mobile-banking-simulator',
     image: '/simbank_preview.png',
     category: 'web',
+    highlights: [
+      'Progressive Web App — bisa di-install langsung dari browser tanpa app store.',
+      'QRIS payment simulator dengan flow scan, nominal, dan konfirmasi real-time.',
+      'Savings goals — user bisa membuat tabungan berjangka dengan target nominal dan deadline.',
+      'Notifikasi push real-time untuk setiap transaksi masuk/keluar.',
+      'Dashboard analitik: ringkasan pengeluaran mingguan dan grafik arus kas.',
+    ],
+    challenge: 'Membangun simulasi banking yang terasa real tanpa integrasi payment gateway sesungguhnya. Flow transaksi harus kompleks (transfer, top-up, QRIS) namun tetap intuitif untuk first-time user.',
+    solution: 'Menggunakan state machine untuk mengelola flow transaksi — setiap langkah (pilih tujuan, masukkan nominal, konfirmasi) diperlakukan sebagai state terpisah. Database PostgreSQL menyimpan semua data transaksi secara persisten, dan WebSocket mengirim notifikasi real-time ke client tanpa polling.',
   },
   {
     title: 'TaskFlow Genius',
@@ -149,6 +161,15 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/dimsdevv/taskflow-genius',
     image: '/taskflow_preview.png',
     category: 'web',
+    highlights: [
+      'Drag-and-drop Kanban board dengan sorting real-time antar kolom.',
+      'Integrasi NLP — user cukup tulis deskripsi tugas, AI menentukan deadline otomatis.',
+      'Filter dan search untuk menemukan task berdasarkan label, prioritas, atau tanggal.',
+      'Real-time collaboration: perubahan task langsung terlihat tanpa refresh.',
+      'Progress tracking — visualisasi persentase completion per board.',
+    ],
+    challenge: 'Integrasi NLP untuk auto-deadline tidak selalu akurat. Tugas dengan deskripsi ambigu seperti "meeting minggu depan" perlu diparse ke tanggal konkret — ini membutuhkan konteks bahasa yang cukup cerdas.',
+    solution: 'Menggunakan hybrid approach: model NLP mengekstrak intent dari deskripsi, lalu rule-based logic menentukan tanggal berdasarkan reference date (hari ini). Hasilnya dikombinasikan — NLP mengklasifikasi urgency, rule engine mengkonversi relative time ke absolute date. Fallback manual tetap tersedia jika hasil kurang tepat.',
   },
   {
     title: 'BeanPay POS',
@@ -163,6 +184,15 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/dimsdevv/beanpay-pos',
     image: '/beanpay_preview.png',
     category: 'web',
+    highlights: [
+      'POS interface — grid menu dengan kategori, search, dan quick-add ke order.',
+      'Manajemen meja real-time — status meja (kosong/terisi/perlu dibersihkan) berubah otomatis.',
+      'Kitchen Display System — pesanan masuk langsung ke layar dapur tanpa printer.',
+      'Pembayaran QRIS dengan auto-generate QR code.',
+      'Laporan harian: total omzet, item terlaris, dan rata-rata waktu proses per order.',
+    ],
+    challenge: 'Di jam sibuk, POS harus handle banyak order sekaligus tanpa lag. Kitchen display harus sinkron dengan kasir secara real-time — jika kasir menerima order baru, dapur harus langsung melihatnya.',
+    solution: 'Menggunakan Server-Sent Events (SSE) untuk sinkronisasi real-time antara kasir, dapur, dan manajer. MySQL menangani semua data transaksi dengan indexed queries untuk performa. Grid layout POS dibangun dengan CSS Grid untuk rendering cepat — tidak ada library drag-and-drop, cukup native touch events untuk mobile.',
   },
   {
     title: 'Mortyxvoid Store',
@@ -176,6 +206,15 @@ export const projects: Project[] = [
     demoUrl: 'https://mortyxvoid.shop/',
     image: '/mortyxvoid_preview.png',
     category: 'web',
+    highlights: [
+      'Katalog produk dengan filter kategori, search, dan sort by price/popularity.',
+      'Keranjang belanja dinamis — update jumlah item, subtotal, dan total tanpa reload.',
+      'Checkout flow multi-step: alamat, metode pembayaran, konfirmasi.',
+      'Responsive design — pengalaman belanja yang konsisten dari desktop hingga mobile.',
+      'Product detail page dengan galeri gambar, deskripsi, dan rekomendasi.',
+    ],
+    challenge: 'E-commerce harus terasa cepat dan responsif — setiap delay di checkout bisa kehilangan customer. Keranjang belanja harus persist tanpa akun.',
+    solution: 'Keranjang belanja menggunakan localStorage untuk persistence tanpa akun, dengan sync ke server saat checkout dimulai. Checkout flow multi-step dengan animation transisi antar step — user merasa seperti dalam proses yang kontinu, bukan form yang terpisah-pisah.',
   },
 ]
 

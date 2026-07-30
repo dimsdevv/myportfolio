@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import { projects, type Project } from '@/data/portfolio-data'
 import { ExternalLink, Github, Landmark, Rocket, Coffee, ShoppingCart, type LucideIcon } from 'lucide-react'
-import ProjectModal from '@/components/ui/ProjectModal'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -10,23 +9,12 @@ const iconMap: Record<string, LucideIcon> = { Landmark, Rocket, Coffee, Shopping
 
 const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="400"%3E%3Crect fill="%23111111" width="800" height="400"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="14" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage Not Found%3C/text%3E%3C/svg%3E'
 
-export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [isModalClosing, setIsModalClosing] = useState(false)
+interface ProjectsProps {
+  onSelectProject: (project: Project) => void
+}
+
+export default function Projects({ onSelectProject }: ProjectsProps) {
   const containerRef = useRef<HTMLElement>(null)
-
-  const handleOpenModal = (project: Project) => {
-    setSelectedProject(project)
-    setIsModalClosing(false)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalClosing(true)
-    setTimeout(() => {
-      setSelectedProject(null)
-      setIsModalClosing(false)
-    }, 400)
-  }
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = FALLBACK_IMG
@@ -92,7 +80,7 @@ export default function Projects() {
             <div 
               key={project.title} 
               className="proj-card bento-4 project-card glass-card rounded-3xl overflow-hidden cursor-pointer" 
-              onClick={() => handleOpenModal(project)}
+              onClick={() => onSelectProject(project)}
             >
               <div className="relative h-48 overflow-hidden group">
                 <img src={project.image} alt={`Tampilan antarmuka ${project.title} — ${project.description.split('.')[0]}`} onError={handleImgError} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
@@ -139,14 +127,6 @@ export default function Projects() {
           </a>
         </div>
       </div>
-
-      {selectedProject && (
-        <ProjectModal 
-          project={selectedProject} 
-          onClose={handleCloseModal} 
-          isClosing={isModalClosing} 
-        />
-      )}
     </section>
   )
 }

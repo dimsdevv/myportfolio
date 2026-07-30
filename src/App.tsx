@@ -1,3 +1,4 @@
+import { useState, useCallback, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -13,27 +14,57 @@ import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Contact from '@/components/sections/Contact'
+import ProjectDetail from '@/components/sections/ProjectDetail'
+import type { Project } from '@/data/portfolio-data'
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  const handleSelectProject = useCallback((project: Project) => {
+    setSelectedProject(project)
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  const handleBackToPortfolio = useCallback(() => {
+    setSelectedProject(null)
+    setTimeout(() => {
+      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }, [])
+
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [selectedProject])
+
   return (
     <div className="relative">
-      <Preloader />
-      <ScrollProgress />
-      <CustomCursor />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
-      <BackToTop />
-      <Footer />
+      {selectedProject ? (
+        <ProjectDetail project={selectedProject} onBack={handleBackToPortfolio} />
+      ) : (
+        <>
+          <Preloader />
+          <ScrollProgress />
+          <CustomCursor />
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects onSelectProject={handleSelectProject} />
+            <Contact />
+          </main>
+          <BackToTop />
+          <Footer />
+        </>
+      )}
     </div>
   )
 }
