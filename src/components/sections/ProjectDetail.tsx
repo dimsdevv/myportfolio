@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { ArrowLeft, ExternalLink, Github, Check, Zap, Lightbulb, ChevronDown } from 'lucide-react'
-import { Landmark, Rocket, Coffee, ShoppingCart, type LucideIcon } from 'lucide-react'
+import { Landmark, Rocket, Coffee, ShoppingCart, Printer, type LucideIcon } from 'lucide-react'
 import type { Project } from '@/data/portfolio-data'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const iconMap: Record<string, LucideIcon> = { Landmark, Rocket, Coffee, ShoppingCart }
+const iconMap: Record<string, LucideIcon> = { Landmark, Rocket, Coffee, ShoppingCart, Printer }
 
 const FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="600"%3E%3Crect fill="%23111111" width="1200" height="600"/%3E%3Ctext fill="%2352525b" font-family="monospace" font-size="16" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EPreview Not Available%3C/text%3E%3C/svg%3E'
 
