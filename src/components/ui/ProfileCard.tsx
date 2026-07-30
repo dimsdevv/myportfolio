@@ -27,7 +27,7 @@ const Card = () => {
             <p className="text-[10px] text-text-muted uppercase tracking-[0.15em] font-medium">Software Engineer</p>
           </div>
           <a 
-            href="mailto:dimas.sholihulhadi@gmail.com"
+            href="mailto:dimas.sholihulhadi@mhs.itenas.ac.id"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.05] border border-white/[0.1] text-text-muted hover:text-white hover:bg-white/[0.1] transition-all duration-300 group-hover:rotate-45"
             aria-label="Email Me"
           >
@@ -38,7 +38,7 @@ const Card = () => {
         {/* Actions */}
         <div className="flex gap-2 pt-4 border-t border-white/[0.06]">
           <a 
-            href="https://github.com/Dss02" 
+            href="https://github.com/dimsdevv"
             target="_blank" 
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04] text-text-secondary hover:text-white hover:bg-white/[0.06] transition-all duration-300 text-xs font-medium"

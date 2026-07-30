@@ -212,9 +212,9 @@ export const education: Education[] = [
 
 export const experiences: Experience[] = [
   {
-    title: 'Magang Web Developer',
-    company: 'Pesantren · Internship Ponpes',
-    description: 'Pengembangan web full-stack untuk sistem manajemen internal',
+    title: 'Web Developer Intern',
+    company: 'Pesantren Digitalisasi · Magang',
+    description: 'Merancang dan mengembangkan sistem informasi manajemen internal berbasis web dari nol',
     year: '2022',
     emoji: '🕌',
     colorClass: 'bg-zinc-500/15',
@@ -222,16 +222,16 @@ export const experiences: Experience[] = [
     gradientClass: 'from-zinc-400 to-zinc-600',
     techStack: ['PHP', 'MySQL', 'HTML/CSS', 'Bootstrap'],
     responsibilities: [
-      'Membangun sistem informasi berbasis web menggunakan HTML, CSS, PHP, dan MySQL.',
-      'Merancang antarmuka yang responsif dan ramah pengguna untuk pengelolaan data santri.',
-      'Berkoordinasi langsung dengan staf pesantren untuk analisis kebutuhan sistem.',
+      'Mengembangkan sistem informasi berbasis web (full-cycle: requirement gathering hingga deployment) menggunakan PHP, MySQL, dan Bootstrap.',
+      'Mendesain UI yang responsif untuk pengelolaan data santri, jadwal, dan keuangan pesantren.',
+      'Berkolaborasi langsung dengan staf non-teknis untuk mengubah kebutuhan operasional menjadi fitur web yang fungsional.',
     ],
     bulletColorClass: 'text-zinc-400',
   },
   {
-    title: 'Mahasiswa Pengembang',
-    company: 'Itenas · Proyek Akademik & Personal',
-    description: 'Membangun aplikasi web dan mengeksplorasi konsep data science',
+    title: 'Software Engineering Student',
+    company: 'Institut Teknologi Nasional (Itenas)',
+    description: 'Mengerjakan proyek akademik dan personal yang mengasah kemampuan full-stack & data',
     year: '2022 – Sekarang',
     emoji: '🎓',
     colorClass: 'bg-zinc-600/15',
@@ -239,9 +239,9 @@ export const experiences: Experience[] = [
     gradientClass: 'from-zinc-500 to-zinc-700',
     techStack: [],
     responsibilities: [
-      'Mengerjakan proyek mata kuliah berbasis web dan analisis data.',
-      'Eksplorasi data menggunakan Python: cleaning, visualisasi, dan analisis sederhana.',
-      'Membangun proyek-proyek personal untuk memperkuat portofolio.',
+      'Mengembangkan proyek-proyek mata kuliah berbasis web: mulai dari perancangan database, backend API, hingga antarmuka responsif.',
+      'Mempelajari dan menerapkan analisis data menggunakan Python (Pandas, NumPy, Matplotlib) pada dataset real.',
+      'Membangun portofolio personal secara konsisten dengan proyek-proyek yang menyelesaikan masalah nyata — dari POS kasir hingga simulator mobile banking.',
     ],
     bulletColorClass: 'text-zinc-500',
   },
