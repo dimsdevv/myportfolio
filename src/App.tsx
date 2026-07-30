@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import CustomCursor from '@/components/shared/CustomCursor'
 import Preloader from '@/components/shared/Preloader'
 import ScrollProgress from '@/components/shared/ScrollProgress'
 import BackToTop from '@/components/shared/BackToTop'
@@ -36,7 +35,6 @@ export default function App() {
 
   return (
     <div className="relative">
-      <CustomCursor />
       <ScrollProgress />
       {selectedProject ? (
         <ProjectDetail project={selectedProject} onBack={handleBackToPortfolio} />

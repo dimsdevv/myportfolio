@@ -59,19 +59,6 @@
   box-sizing: border-box;
 }
 
-html {
-  cursor: none;
-}
-
-@media (hover: none), (pointer: coarse) {
-  html {
-    cursor: auto;
-  }
-  [data-cursor] {
-    display: none !important;
-  }
-}
-
 body {
   background-color: #09090b;
   color: #fafafa;
