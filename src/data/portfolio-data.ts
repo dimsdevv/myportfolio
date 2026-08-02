@@ -274,17 +274,18 @@ export const education: Education[] = [
 
 export const experiences: Experience[] = [
   {
-    title: 'Admin Sistem & Operasional',
+    title: 'Developer & Admin Operasional',
     company: 'Checkpoint Cafe · Cipatujah, Tasikmalaya',
-    description: 'Mengelola sistem POS dan operasional harian cafe — mulai dari administrasi keuangan, manajemen stok, hingga koordinasi tim kasir',
+    description: 'Membangun sistem POS dari nol dan mengelola operasional harian cafe — mulai dari pengembangan sistem, administrasi keuangan, hingga manajemen stok',
     year: 'Jul — Agt 2026',
     icon: 'Printer',
     colorClass: 'bg-zinc-400/15',
     badgeColorClass: 'bg-zinc-400/10 border-zinc-400/20 text-zinc-200',
     gradientClass: 'from-zinc-300 to-zinc-500',
-    techStack: ['Checkpoint POS', 'Manajemen Operasional', 'Administrasi Keuangan'],
+    techStack: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'PWA', 'Docker'],
     responsibilities: [
-      'Mengelola sistem Checkpoint POS (cekpoint.store) untuk seluruh operasional harian cafe — dari penerimaan pesanan hingga pelaporan.',
+      'Merancang dan membangun Checkpoint POS (cekpoint.store) dari nol — sistem all-in-one yang menyatukan admin, kasir, menu, inventaris, dan keuangan.',
+      'Mengelola sistem POS untuk seluruh operasional harian cafe — dari penerimaan pesanan hingga pelaporan.',
       'Mengatur administrasi keuangan — pencatatan pemasukan, pengeluaran, dan pemantauan laporan laba-rugi harian.',
       'Melakukan manajemen inventaris bahan baku — memantau stok masuk/keluar dan memastikan ketersediaan bahan di jam operasional.',
       'Mengkoordinasikan alur kerja antara kasir, dapur, dan manajemen agar operasional berjalan efisien.',
