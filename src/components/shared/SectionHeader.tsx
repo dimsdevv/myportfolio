@@ -18,7 +18,7 @@ export default function SectionHeader({ label, title, highlight, description, ce
         {title} <span className="gradient-text">{highlight}</span>
       </h2>
       {description && (
-        <p className="text-text-secondary mt-4 max-w-md mx-auto">{description}</p>
+        <p className={`text-text-secondary mt-4 max-w-md ${centered ? 'mx-auto' : ''}`}>{description}</p>
       )}
     </div>
   )
