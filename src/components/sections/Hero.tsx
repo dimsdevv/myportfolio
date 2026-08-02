@@ -41,92 +41,96 @@ export default function Hero() {
   }
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 2.0 })
+    let mm = gsap.matchMedia();
 
-    // Title staggered lines
-    tl.fromTo('.hero-title-line',
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        stagger: 0.1,
-        ease: 'power3.out'
-      }
-    )
-    
-    // Description
-    .fromTo('.hero-desc',
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out'
-      }, '-=0.9'
-    )
-    
-    // Buttons
-    .fromTo('.hero-btn',
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power3.out'
-      }, '-=0.8'
-    )
-    
-    // Stats
-    .fromTo('.hero-stats',
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out'
-      }, '-=0.8'
-    )
-    
-    // Profile Card
-    .fromTo(profileRef.current,
-      { x: 30, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power3.out'
-      }, '-=1'
-    )
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline({ delay: 2.0 })
 
-    // Continuous float animation for profile
-    gsap.to(profileRef.current, {
-      y: -8,
-      duration: 4,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: 4.6
-    })
+      // Title staggered lines
+      tl.fromTo('.hero-title-line',
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.1,
+          ease: 'power3.out'
+        }
+      )
+      
+      // Description
+      .fromTo('.hero-desc',
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out'
+        }, '-=0.9'
+      )
+      
+      // Buttons
+      .fromTo('.hero-btn',
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: 'power3.out'
+        }, '-=0.8'
+      )
+      
+      // Stats
+      .fromTo('.hero-stats',
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out'
+        }, '-=0.8'
+      )
+      
+      // Profile Card
+      .fromTo(profileRef.current,
+        { x: 30, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out'
+        }, '-=1'
+      )
 
-    // Continuous bounce for scroll indicator
-    gsap.fromTo(indicatorRef.current,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.8,
+      // Continuous float animation for profile
+      gsap.to(profileRef.current, {
+        y: -8,
+        duration: 4,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
         delay: 4.6
-      }
-    )
-    gsap.to(indicatorRef.current, {
-      y: 6,
-      duration: 1.5,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: 4.6
-    })
+      })
+
+      // Continuous bounce for scroll indicator
+      gsap.fromTo(indicatorRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.8,
+          delay: 4.6
+        }
+      )
+      gsap.to(indicatorRef.current, {
+        y: 6,
+        duration: 1.5,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        delay: 4.6
+      })
+    });
 
   }, { scope: containerRef })
 

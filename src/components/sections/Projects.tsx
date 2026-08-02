@@ -21,51 +21,55 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
   }
 
   useGSAP(() => {
-    // Header
-    gsap.fromTo('.proj-header', 
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-        }
-      }
-    )
+    let mm = gsap.matchMedia();
 
-    // Project cards
-    gsap.fromTo('.proj-card', 
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.proj-grid',
-          start: 'top 80%',
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Header
+      gsap.fromTo('.proj-header', 
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+          }
         }
-      }
-    )
+      )
 
-    // Footer button
-    gsap.fromTo('.proj-footer', 
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.proj-footer',
-          start: 'top 90%',
+      // Project cards
+      gsap.fromTo('.proj-card', 
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.proj-grid',
+            start: 'top 80%',
+          }
         }
-      }
-    )
+      )
+
+      // Footer button
+      gsap.fromTo('.proj-footer', 
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.proj-footer',
+            start: 'top 90%',
+          }
+        }
+      )
+    });
   }, { scope: containerRef })
 
   return (
@@ -79,8 +83,16 @@ export default function Projects({ onSelectProject }: ProjectsProps) {
           {projects.map((project) => (
             <div 
               key={project.title} 
-              className="proj-card bento-4 project-card glass-card rounded-3xl overflow-hidden cursor-pointer" 
+              role="button"
+              tabIndex={0}
+              className="proj-card bento-4 project-card glass-card rounded-3xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-[#09090b]" 
               onClick={() => onSelectProject(project)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelectProject(project);
+                }
+              }}
             >
               <div className="relative h-48 overflow-hidden group">
                 <img src={project.image} alt={`Tampilan antarmuka ${project.title} — ${project.description.split('.')[0]}`} onError={handleImgError} className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy" />
