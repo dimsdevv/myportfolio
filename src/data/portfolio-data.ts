@@ -274,6 +274,26 @@ export const education: Education[] = [
 
 export const experiences: Experience[] = [
   {
+    title: 'Freelance Full-Stack Developer',
+    company: 'Checkpoint Cafe · Freelance',
+    description: 'Membangun sistem POS all-in-one dari nol untuk operasional kafe — mulai dari kasir, inventaris, hingga laporan keuangan',
+    year: '2025 — Sekarang',
+    icon: 'Printer',
+    colorClass: 'bg-zinc-400/15',
+    badgeColorClass: 'bg-zinc-400/10 border-zinc-400/20 text-zinc-200',
+    gradientClass: 'from-zinc-300 to-zinc-500',
+    techStack: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'PWA', 'Docker'],
+    responsibilities: [
+      'Merancang dan membangun Checkpoint POS (cekpoint.store) — sistem manajemen operasional lengkap yang menyatukan admin, kasir, menu, inventaris, dan keuangan.',
+      'Mengembangkan dashboard admin dengan ringkasan penjualan real-time, notifikasi stok menipis, dan aktivitas harian.',
+      'Membangun interface kasir yang cepat dan intuitif untuk input pesanan, pembayaran, dan cetak struk.',
+      'Mengimplementasikan manajemen inventaris bahan baku — pelacakan stok masuk/keluar dengan peringatan otomatis.',
+      'Menerapkan arsitektur PWA agar sistem tetap dapat diakses secara offline saat koneksi internet tidak stabil.',
+      'Melakukan deployment menggunakan Docker untuk kemudahan setup dan skalabilitas di lingkungan production.',
+    ],
+    bulletColorClass: 'text-zinc-300',
+  },
+  {
     title: 'Web Developer Intern',
     company: 'Pesantren Digitalisasi · Magang',
     description: 'Merancang dan mengembangkan website Wakaf Al-Quran dari nol',
