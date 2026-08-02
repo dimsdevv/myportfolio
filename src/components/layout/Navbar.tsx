@@ -8,6 +8,7 @@ const navItems = [
   { label: 'Tentang', href: '#about' },
   { label: 'Keahlian', href: '#skills' },
   { label: 'Pengalaman', href: '#experience' },
+  { label: 'Aktivitas', href: '#activity' },
   { label: 'Proyek', href: '#projects' },
   { label: 'Kontak', href: '#contact' },
 ]
