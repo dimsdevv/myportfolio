@@ -11,6 +11,7 @@ import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
 import Experience from '@/components/sections/Experience'
+import GithubActivity from '@/components/sections/GithubActivity'
 import Projects from '@/components/sections/Projects'
 import Contact from '@/components/sections/Contact'
 import ProjectDetail from '@/components/sections/ProjectDetail'
@@ -47,6 +48,7 @@ export default function App() {
             <About />
             <Skills />
             <Experience />
+            <GithubActivity />
             <Projects onSelectProject={handleSelectProject} />
             <Contact />
           </main>
